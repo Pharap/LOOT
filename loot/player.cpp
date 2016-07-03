@@ -18,11 +18,26 @@ void Player::init(void)
   sp = 10;
 }
 
+Direction Player::getDirection(void) const
+{
+  return dir;
+}
+
 void Player::changeDirection(const Direction direction)
 {
   Direction lastDir = this->dir;
   this->dir = direction;
   this->moved = (this->dir != lastDir);
+}
+
+bool Player::hasMoved(void) const
+{
+ return moved; 
+}
+
+void Player::resetMoved(void)
+{
+  moved = false;
 }
 
 void Player::move(const int8_t distance)
