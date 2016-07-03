@@ -66,7 +66,7 @@ void Game::step(void)
       playerStep();
       render->step();
       render->draw();
-      player->resetMoved()
+      player->resetMoved();
 
       if(ab->isPushed(BTN_A))
         ab->setState(stateBattle);
