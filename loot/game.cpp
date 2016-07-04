@@ -6,6 +6,7 @@
 #include "world.h"
 #include "constants.h"
 #include "direction.h"
+#include "button.h"
 
 Game::Game(System & ab, Render & render, Menu & menu, Player & player, World & world)
 {
@@ -68,7 +69,7 @@ void Game::step(void)
       render->draw();
       player->resetMoved();
 
-      if(ab->isPushed(BTN_A))
+      if(ab->isPushed(Button::A))
         ab->setState(stateBattle);
       break;
     }
@@ -80,7 +81,7 @@ void Game::step(void)
       ab->print(F("Battle"));
       ab->setCursor(66,10);
       ab->print(F("goes here!"));
-      if(ab->isPushed(BTN_A))
+      if(ab->isPushed(Button::A))
         ab->setState(stateGame);
       break;
     }
@@ -91,17 +92,17 @@ void Game::playerStep(void) //Here just for testing reasons, will be relocated s
 {
   Direction dir = player->getDirection();
 
-  if(ab->isPushed(BTN_L))
+  if(ab->isPushed(Button::Left))
     dir = rotateLeft(dir);
 
-  if(ab->isPushed(BTN_R))
+  if(ab->isPushed(Button::Right))
     dir = rotateRight(dir);
 
   player->changeDirection(dir);
 
-  if(ab->isPushed(BTN_U)) //move 1 step in the looking direction
+  if(ab->isPushed(Button::Up)) //move 1 step in the looking direction
     player->move(1);
 
-  if(ab->isPushed(BTN_D))
+  if(ab->isPushed(Button::Down))
     player->move(-1);
 }
