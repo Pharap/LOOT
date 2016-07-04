@@ -2,6 +2,7 @@
 #include "constants.h"
 #include "graphics.h"
 #include "system.h"
+#include "button.h"
 
 Menu::Menu(System & ab)
 {
@@ -21,7 +22,7 @@ void Menu::step(void)
 
   if(logoAnim == 0) //if menu is ready
   {
-    if(ab->isPushed(BTN_A))
+    if(ab->isPushed(Button::A))
     {
       switch(page)
       {
@@ -49,12 +50,12 @@ void Menu::step(void)
       }
     }
 
-    if(ab->isPushed(BTN_U))
+    if(ab->isPushed(Button::Up))
     {
       --select;
     }
 
-    if(ab->isPushed(BTN_D))
+    if(ab->isPushed(Button::Down))
     {
       ++select;
     }
