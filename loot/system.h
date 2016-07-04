@@ -1,20 +1,11 @@
 #pragma once
 
-#include "core/core.h"
 #include "arduboy.h"
 #include "constants.h"
+#include "button.h"
 
 #define SCREEN_WIDTH  (WIDTH)
 #define SCREEN_HEIGHT (HEIGHT)
-
-// IMPORTANT: These change value depending whether you're compiling for Arduboy 10 or the Devkit.
-// Please remember to define ARDUBOY_10 or AB_DEVKIT in your ino file.
-#define BTN_U (UP_BUTTON)
-#define BTN_D (DOWN_BUTTON)
-#define BTN_L (LEFT_BUTTON)
-#define BTN_R (RIGHT_BUTTON)
-#define BTN_A (A_BUTTON)
-#define BTN_B (B_BUTTON)
 
 class System : public Arduboy
 {
@@ -51,21 +42,21 @@ class System : public Arduboy
     // if(arduboy.pressed(B_BUTTON)) { nowInput |= BTN_B; }
   }
 
-  bool isPressed(const uint8_t button) const
+  bool isPressed(const Button button) const
   {
-     return ((this->nowInput & button) != 0);
+     return ((this->nowInput & static_cast<uint8_t>(button)) != 0);
   }
 
-  bool isPushed(const uint8_t button) const
+  bool isPushed(const Button button) const
   {
     // If pressed this frame, but not last frame
-    return ((this->nowInput & button) != 0) && ((this->prevInput & button) == 0);
+    return ((this->nowInput & static_cast<uint8_t>(button)) != 0) && ((this->prevInput & static_cast<uint8_t>(button)) == 0);
   }
 
-  bool isReleased(const uint8_t button) const
+  bool isReleased(const Button button) const
   {
     // If released in the last frame
-    return ((this->prevInput & button) != 0) && ((this->nowInput & button) == 0);
+    return ((this->prevInput & static_cast<uint8_t>(button)) != 0) && ((this->nowInput & static_cast<uint8_t>(button)) == 0);
   }
 
   void drawSprite(int8_t x, int8_t y, const byte* bitmap, byte c) {
