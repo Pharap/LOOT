@@ -1,5 +1,5 @@
 #pragma once
-#include <cstdint.h>
+#include <stdint.h>
 
 template <uint8_t Offset, uint8_t Mask>
 class Bitfield8
