@@ -16,8 +16,6 @@ class Render
     bool wallShow[11] = {};
     bool itemShow[11] = {};
   public:
-    int8_t renderPos;
-
     Render(System & ab,World & world,Player & player);
 
     void step(void);
