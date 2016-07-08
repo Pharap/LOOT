@@ -63,7 +63,24 @@ void Player::jump(const uint8_t x, const uint8_t y)
   }
 }
 
-void Player::step(void)
+void Player::step(const bool up, const bool down, const bool left, const bool right)
 {
-  //currently in gamelogic.cpp because reasons
+  Direction lastDir = dir;
+
+  if(left)
+    dir = rotateLeft(dir);
+
+  if(right)
+    dir = rotateRight(dir);
+
+  if(dir != lastDir)
+  {
+    moved = true;
+  }
+
+  if(up) //move 1 step in the looking direction
+    move(1);
+
+  if(down)
+    move(-1);
 }
