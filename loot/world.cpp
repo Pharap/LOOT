@@ -18,21 +18,9 @@ void World::init(void)
     1,0,1,1,1,1,1,0,
     1,1,1,1,1,1,1,0
   };
-  uint8_t itemdata[64] =
-  {
-    0,0,0,0,0,0,0,0,
-    1,0,0,0,0,0,1,1,
-    0,0,0,0,0,0,0,0,
-    0,0,0,0,0,0,0,1,
-    0,0,0,0,0,0,0,0,
-    0,0,0,0,0,0,0,0,
-    0,1,0,0,0,0,0,0,
-    0,0,0,0,0,0,0,1,
-  };
   for(int8_t i=0; i<64; i++)
   {
     level[i] = leveldata[i];
-    items[i] = itemdata[i];
   };
 
 }
@@ -83,13 +71,15 @@ uint8_t World::getFast(const int8_t x, const int8_t y) const
 }
 bool World::getItem(const int8_t x, const int8_t y) const
 {
-  if(inbound(x,y))
-    return items[(y*width)+x];
-  else
-    return false;
+  return false;
 }
 
 bool World::inbound(const int8_t x, const int8_t y) const
 {
   return((x>=0)&&(y>=0)&&(x<width)&&(y<height));
+}
+
+void World::step(void)
+{
+
 }
