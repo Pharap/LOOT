@@ -16,9 +16,9 @@ inline bool Render::wallCheck(const int8_t x, const int8_t y)
 {
   return (world->get(x, y) == 1);
 }
-inline bool Render::itemCheck(const int8_t x, const int8_t y)
+inline uint8_t Render::itemCheck(const int8_t x, const int8_t y)
 {
-  return (world->getItem(x, y));
+  return !(world->getItem(x, y));
 }
 
 void Render::calculateView(const int8_t x, const int8_t y, const Direction dir)
@@ -61,7 +61,10 @@ void Render::calculateView(const int8_t x, const int8_t y, const Direction dir)
     }
 
     wallShow[i] = wallCheck(x + xs, y + ys);
-    itemShow[i] = itemCheck(x + xs, y + ys);
+    itemShow[i] = false;  
+
+    if(wallShow[i] == 0)
+      itemShow[i] = itemCheck(x + xs, y + ys);
   }
 
 

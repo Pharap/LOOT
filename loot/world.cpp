@@ -1,6 +1,36 @@
 #include "world.h"
 #include <stdint.h>
 
+///chests
+void Chest::setType(uint8_t type)
+{
+  this->type = type;
+} 
+
+uint8_t Chest::getType()
+{
+  return type;
+}
+
+int8_t Chest::getX()
+{
+  return x;
+}
+
+int8_t Chest::getY()
+{
+  return y;
+}
+
+void Chest::set(const int8_t x,const int8_t y,const uint8_t type)
+{
+  this->x = x;
+  this->y = y;
+  this->type = type;
+}
+
+
+//world
 void World::init(void)
 {
   width = 8;
@@ -18,11 +48,17 @@ void World::init(void)
     1,0,1,1,1,1,1,0,
     1,1,1,1,1,1,1,0
   };
-  for(int8_t i=0; i<64; i++)
+  for(uint8_t i=0; i<64; ++i)
   {
     level[i] = leveldata[i];
   };
+  for(uint8_t i=0; i<16; ++i)
+  {
+    chests[i].set(0,0,0);
+  }
 
+  chests[0].set(0,1,1);
+  chests[1].set(1,6,1); 
 }
 
 void World::load(uint8_t *ID) //reads a map from PROGMEM and loads it into memory
@@ -69,9 +105,14 @@ uint8_t World::getFast(const int8_t x, const int8_t y) const
 {
   return level[(y*width)+x];
 }
-bool World::getItem(const int8_t x, const int8_t y) const
+uint8_t World::getItem(const int8_t x, const int8_t y)
 {
-  return false;
+  //this is horrible please change
+  for(uint8_t i; i<16; ++i) //loop every chest
+  {
+    if ((chests[i].getX() == x) && (chests[i].getY() == y)) //if chest is on position, return contents
+      return (chests[i].getType()==false);
+  }
 }
 
 bool World::inbound(const int8_t x, const int8_t y) const

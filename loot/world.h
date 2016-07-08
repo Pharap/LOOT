@@ -2,8 +2,16 @@
 #include <stdint.h>
 
 class Chest {
-  uint8_t type;
-  uint8_t x,y;
+private:
+    uint8_t type;
+    int8_t x,y;
+
+public:
+    void set(int8_t x, int8_t y, uint8_t type); 
+    void setType(uint8_t type);
+    uint8_t getType();
+    int8_t getX();
+    int8_t getY();
 };
 
 class World
@@ -23,6 +31,6 @@ class World
     bool validSize(const uint8_t width, const uint8_t height);
     uint8_t get(const int8_t x, const int8_t y) const;
     uint8_t getFast(const int8_t x, const int8_t y) const;
-    bool getItem(const int8_t x, const int8_t y) const;
+    uint8_t getItem(const int8_t x, const int8_t y);
     bool inbound(const int8_t x, const int8_t y) const;
 };
