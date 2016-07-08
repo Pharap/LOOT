@@ -76,14 +76,14 @@ class System : public Arduboy
   {  
     const int8_t hw = pgm_read_byte(bitmap) / 2;
     const int8_t hh = pgm_read_byte(bitmap+1) / 2;
-    this->drawSprite(x-hw, y-hh, bitmap+2, c);
+    this->drawSprite(x-hw, y-hh, bitmap, c);
   }  
   void drawSpriteMaskedCentered(const int8_t x, const int8_t y, const byte* bitmap, const byte* mask)
   {  
     const int8_t hw = pgm_read_byte(bitmap) / 2;
     const int8_t hh = pgm_read_byte(bitmap+1) / 2;
-    this->drawSprite(x - hw, y - hh, mask+2, 0);
-    this->drawSprite(x - hw, y - hh, bitmap+2, 1);
+    this->drawSprite(x - hw, y - hh, mask, 0);
+    this->drawSprite(x - hw, y - hh, bitmap, 1);
   }
 
   uint8_t getState(void) const
