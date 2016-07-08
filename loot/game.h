@@ -23,5 +23,4 @@ class Game
     void draw(void);
     void load(const bool slot);
     void save(const bool slot);
-    void playerStep(void);
 };

@@ -64,7 +64,7 @@ void Game::step(void)
     }
     case stateGame:
     {
-      playerStep();
+      player->step(ab->isPushed(Button::Up), ab->isPushed(Button::Down), ab->isPushed(Button::Left), ab->isPushed(Button::Right));
       render->step();
       render->draw();
       player->resetMoved();
@@ -86,23 +86,4 @@ void Game::step(void)
       break;
     }
   }
-}
-
-void Game::playerStep(void) //Here just for testing reasons, will be relocated soon
-{
-  Direction dir = player->getDirection();
-
-  if(ab->isPushed(Button::Left))
-    dir = rotateLeft(dir);
-
-  if(ab->isPushed(Button::Right))
-    dir = rotateRight(dir);
-
-  player->changeDirection(dir);
-
-  if(ab->isPushed(Button::Up)) //move 1 step in the looking direction
-    player->move(1);
-
-  if(ab->isPushed(Button::Down))
-    player->move(-1);
 }
