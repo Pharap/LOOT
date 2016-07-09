@@ -13,6 +13,8 @@
 void setup(void)
 {
 	ab.begin();
+	Serial.begin(9600);
+	Serial.println(F("Start!"));
 	ab.fillScreen(0);
   	ab.drawSpriteCentered(64, 32, imgTitle, 1);
 	ab.display();

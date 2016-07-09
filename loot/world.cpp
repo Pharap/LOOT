@@ -5,7 +5,7 @@
 void Chest::setType(uint8_t type)
 {
   this->type = type;
-} 
+}
 
 uint8_t Chest::getType()
 {
@@ -52,13 +52,9 @@ void World::init(void)
   {
     level[i] = leveldata[i];
   };
-  for(uint8_t i=0; i<16; ++i)
-  {
-    chests[i].set(0,0,0);
-  }
 
   chests[0].set(0,1,1);
-  chests[1].set(1,6,1); 
+  chests[1].set(1,6,1);
 }
 
 void World::load(uint8_t *ID) //reads a map from PROGMEM and loads it into memory
@@ -126,7 +122,7 @@ uint8_t World::getItemType(const int8_t x, const int8_t y)
   for(uint8_t i; i<16; ++i) //loop every chest
   {
     if ((chests[i].getX() == x) && (chests[i].getY() == y)) //if chest is on position, return contents
-      return (chests[i].getType()==false);
+      return (chests[i].getType());
   }
   return false;
 }
@@ -155,4 +151,3 @@ void World::setItem(const uint8_t item,const int8_t x, const int8_t y, const uin
 {
   chests[item].set(x,y,type);
 }
-

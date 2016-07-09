@@ -32,7 +32,7 @@ void Player::changeDirection(const Direction direction)
 
 bool Player::hasMoved(void) const
 {
- return moved; 
+ return moved;
 }
 
 void Player::resetMoved(void)
@@ -84,11 +84,10 @@ void Player::step(const bool up, const bool down, const bool left, const bool ri
   if(down)
     move(-1);
 
-  if (a)
+  if(world->getItem(x,y))
   {
-    if(world->getItem(x,y))
-    {
-      world->setItem(world->getItemID(x,y),x,y,0);
-    }
+    Serial.println(F("Item!"));
+    //ab->fillScreen(0);
+    //world->setItem(world->getItemID(x,y),x,y,0);
   }
 }
