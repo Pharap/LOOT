@@ -105,15 +105,6 @@ uint8_t World::getFast(const int8_t x, const int8_t y) const
 {
   return level[(y*width)+x];
 }
-uint8_t World::getItem(const int8_t x, const int8_t y)
-{
-  //this is horrible please change
-  for(uint8_t i; i<16; ++i) //loop every chest
-  {
-    if ((chests[i].getX() == x) && (chests[i].getY() == y)) //if chest is on position, return contents
-      return (chests[i].getType()==false);
-  }
-}
 
 bool World::inbound(const int8_t x, const int8_t y) const
 {
@@ -124,3 +115,44 @@ void World::step(void)
 {
 
 }
+
+//////
+//BURN EVERYTHING BELOW THIS LINE
+/////
+
+uint8_t World::getItemType(const int8_t x, const int8_t y)
+{
+  //this is horrible please change
+  for(uint8_t i; i<16; ++i) //loop every chest
+  {
+    if ((chests[i].getX() == x) && (chests[i].getY() == y)) //if chest is on position, return contents
+      return (chests[i].getType()==false);
+  }
+  return false;
+}
+
+bool World::getItem(const int8_t x, const int8_t y)
+{
+  for(uint8_t i; i<16; ++i) //loop every chest
+  {
+    if ((chests[i].getX() == x) && (chests[i].getY() == y))
+      return true;
+  }
+  return false;
+}
+
+uint8_t World::getItemID(const int8_t x, const int8_t y)
+{
+  //Will act weirdly if no chest on tile; 0 is a valid id
+  for(uint8_t i; i<16; ++i) //loop every chest
+  {
+    if ((chests[i].getX() == x) && (chests[i].getY() == y))
+      return i;
+  }
+}
+
+void World::setItem(const uint8_t item,const int8_t x, const int8_t y, const uint8_t type)
+{
+  chests[item].set(x,y,type);
+}
+

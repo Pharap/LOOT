@@ -63,7 +63,7 @@ void Player::jump(const uint8_t x, const uint8_t y)
   }
 }
 
-void Player::step(const bool up, const bool down, const bool left, const bool right)
+void Player::step(const bool up, const bool down, const bool left, const bool right, const bool a)
 {
   Direction lastDir = dir;
 
@@ -83,4 +83,12 @@ void Player::step(const bool up, const bool down, const bool left, const bool ri
 
   if(down)
     move(-1);
+
+  if (a)
+  {
+    if(world->getItem(x,y))
+    {
+      world->setItem(world->getItemID(x,y),x,y,0);
+    }
+  }
 }
