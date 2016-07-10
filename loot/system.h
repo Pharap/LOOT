@@ -28,7 +28,7 @@ class System : public Arduboy
   {
     //input
     this->prevInput = this->nowInput;
-    this->nowInput  = this->buttonsState();
+    this->nowInput  = buttonsState();
 
     // Remapping the button byte every frame is a big waste of time, just use the native bit arrangement
     // Not to mention every one of these function calls was reading from 3 input pins each time, just to arrive
@@ -59,7 +59,7 @@ class System : public Arduboy
     return ((this->prevInput & static_cast<uint8_t>(button)) != 0) && ((this->nowInput & static_cast<uint8_t>(button)) == 0);
   }
 
-  void drawSprite(const int8_t x, const int8_t y, const byte* bitmap, const byte c) 
+  void drawSprite(const int8_t x, const int8_t y, const byte* bitmap, const byte c)
   {
     this->drawBitmap(x ,y , bitmap+2, pgm_read_byte(bitmap), pgm_read_byte(bitmap+1), c);
   }
@@ -67,19 +67,19 @@ class System : public Arduboy
   void drawSpriteMasked(const int8_t x, const int8_t y, const byte* bitmap, const byte* mask)
   {
     const int8_t w = pgm_read_byte(bitmap);
-    const int8_t h = pgm_read_byte(bitmap+1);    
+    const int8_t h = pgm_read_byte(bitmap+1);
     this->drawBitmap(x, y, mask+2, w, h, 0);
     this->drawBitmap(x, y, bitmap+2, w, h, 1);
   }
 
   void drawSpriteCentered(const int8_t x, const int8_t y, const byte* bitmap, const byte c)
-  {  
+  {
     const int8_t hw = pgm_read_byte(bitmap) / 2;
     const int8_t hh = pgm_read_byte(bitmap+1) / 2;
     this->drawSprite(x-hw, y-hh, bitmap, c);
-  }  
+  }
   void drawSpriteMaskedCentered(const int8_t x, const int8_t y, const byte* bitmap, const byte* mask)
-  {  
+  {
     const int8_t hw = pgm_read_byte(bitmap) / 2;
     const int8_t hh = pgm_read_byte(bitmap+1) / 2;
     this->drawSprite(x - hw, y - hh, mask, 0);
@@ -98,6 +98,8 @@ class System : public Arduboy
 
   bool stateChanged(void) const
   {
+    if(this->state != this->lastState)
+      Serial.println(state);
     return (this->state != this->lastState);
   }
 

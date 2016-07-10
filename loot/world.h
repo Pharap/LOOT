@@ -31,6 +31,12 @@ class World
     bool validSize(const uint8_t width, const uint8_t height);
     uint8_t get(const int8_t x, const int8_t y) const;
     uint8_t getFast(const int8_t x, const int8_t y) const;
-    uint8_t getItem(const int8_t x, const int8_t y);
     bool inbound(const int8_t x, const int8_t y) const;
+
+    //stupid
+    void setItem(const uint8_t item, const int8_t x, const int8_t y, const uint8_t type);
+    uint8_t getItemType(const int8_t x, const int8_t y);
+    uint8_t getItemID(const int8_t x, const int8_t y);
+    bool getItem(const int8_t x, const int8_t y);
+    //stupid
 };

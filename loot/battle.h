@@ -1,7 +1,7 @@
 #pragma once
 #include <stdint.h>
 
-class fighter
+class Fighter
 {
 private:
 	int8_t hp;
@@ -16,6 +16,8 @@ class Battle
 {
 private:
 	System * ab;
+	Fighter player;
+	Fighter enemy;
 
 public:
 	Battle(System & ab);
