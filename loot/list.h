@@ -1,6 +1,8 @@
 #pragma once
 #include <stdint.h>
 
+#include "debug.h"
+
 template <typename TItem, int8_t Capacity>
 class List
 {
@@ -12,22 +14,73 @@ private:
 	int8_t next;
 
 public:
-	int8_t getCount(void); const // O(1)
+	int8_t getCount(void) const // O(1)
+	{
+	  return this->next;
+	}
 
-	int8_t getCapacity(void) const; // O(1)
+  // Consider marking constexpr
+	int8_t getCapacity(void) const // O(1)
+	{
+	  return Capacity;
+	}
 
-	bool add(const TItem item); // O(1)
+	bool add(const TItem item) // O(1)
+	{
+		if (this->next == Capacity)
+			return false;
 
-	void remove(const TItem item); // O(n)
+		this->items[this->next] = item;
+		++this->next;
+	}
 
-	void removeAt(const int8_t index); // O(n)
+	void remove(const TItem item) // O(n)
+	{
+		auto index = this->indexOf(item);
+		if (index != -1)
+		  this->removeAt(index);
+	}
 
-	bool contains(const TItem item) csont; // O(n)
+	void removeAt(const int8_t index) // O(n)
+	{
+		DEBUG_ASSERT(index >= 0);
+		DEBUG_ASSERT(index < Capacity);
+		DEBUG_ASSERT(index < this->next);
 
-  // Returns -1 if item not found
-	int8_t indexOf(const TItem item) const; // O(n)
+		for (uint8_t i = index; i < this->next - 1; ++i)
+			this->items[i] = this->items[i + 1];
+	}
 
-	TItem & operator [] (const uint8_t index); // O(1)
+	bool contains(const TItem item) // O(n)
+	{
+		return this->indexOf(item) != -1;
+	}
 
-	const TItem & operator [] (const uint8_t index) const; // O(1)
+	// Returns -1 if item not found
+	int8_t indexOf(const TItem item) // O(n)
+	{
+		for (uint8_t i = 0; i < this->next; ++i)
+			if (this->items[i] == item)
+				return i;
+
+		return -1;
+	}
+
+	TItem & operator [] (const uint8_t index) // O(1)
+	{
+		DEBUG_ASSERT(index >= 0);
+		DEBUG_ASSERT(index < Capacity);
+		DEBUG_ASSERT(index < this->next);
+
+		return this->items[index];
+	}
+
+	const TItem & operator [] (const uint8_t index) const // O(1)
+	{
+		DEBUG_ASSERT(index >= 0);
+		DEBUG_ASSERT(index < Capacity);
+		DEBUG_ASSERT(index < this->next);
+
+		return this->items[index];
+	}
 };
