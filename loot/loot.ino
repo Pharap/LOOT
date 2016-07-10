@@ -10,6 +10,13 @@
 #include "player.h"
 #include "menu.h"
 
+System ab = System();
+World world = World();
+Menu menu = Menu(ab);
+Player player = Player(ab, world);
+Render render = Render(ab, world, player);
+Game game = Game(ab, render, menu, player, world); //controls everything!
+
 void setup(void)
 {
 	ab.begin();
