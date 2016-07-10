@@ -1,7 +1,6 @@
 #include <stdint.h>
 #include <Arduboy.h>
 #include "system.h"
-#include "globals.h"
 #include "game.h"
 #include "graphics.h"
 #include "constants.h"
