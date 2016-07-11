@@ -52,9 +52,11 @@ void World::init(void)
   {
     level[i] = leveldata[i];
   };
-
-  chests[0].set(0,1,1);
-  chests[1].set(1,6,1);
+  Chest chest1; chest1.set(0,1,1);
+  Chest chest2; chest2.set(1,6,1);
+  
+  Chestlist.add(chest1);
+  Chestlist.add(chest2);
 }
 
 void World::load(uint8_t *ID) //reads a map from PROGMEM and loads it into memory
