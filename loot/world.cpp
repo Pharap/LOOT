@@ -39,7 +39,7 @@ void World::init(void)
   //replace this bit with a progmem loader doodah
   uint8_t leveldata[64] =
   {
-    1,1,1,1,1,1,1,1,
+    0,1,1,1,1,1,1,1,
     0,0,0,0,0,1,0,0,
     1,1,0,1,1,0,0,1,
     1,0,0,0,0,0,1,0,
