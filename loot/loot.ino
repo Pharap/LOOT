@@ -11,8 +11,8 @@
 
 System ab = System();
 World world = World();
-Player player = Player(ab, world);
 Menu menu = Menu(ab);
+Player player = Player(ab, world);
 Render render = Render(ab, world, player);
 Game game = Game(ab, render, menu, player, world); //controls everything!
 

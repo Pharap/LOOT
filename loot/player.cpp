@@ -1,7 +1,5 @@
 #include "player.h"
-#include "constants.h"
 #include "world.h"
-#include "button.h"
 #include "system.h"
 #include "direction.h"
 
@@ -42,26 +40,20 @@ void Player::resetMoved(void)
   moved = false;
 }
 
-void Player::move(const int8_t distance, const Direction dir)
+void Player::move(const int8_t distance)
 {
   int8_t nx, ny;  //calculate direction
-  switch(dir)
+  switch(this->dir)
   {
     case Direction::East: nx = 1; break;
     case Direction::South: ny = 1; break;
     case Direction::West: nx = -1; break;
     case Direction::North: ny = -1; break;
   }
-  /*
-  Serial.print(F("Move : "));
-  Serial.print(nx);
-  Serial.println(ny);
-  */
-  this->jump(x + (nx * distance), y + (ny * distance));
-  this->battleSteps += abs(distance);
+  this->jump(this->x + (nx * distance), this->y + (ny * distance));
 }
 
-void Player::jump(const int8_t x, const int8_t y)
+void Player::jump(const uint8_t x, const uint8_t y)
 {
   if (world->get(x, y) == 0)
   {
@@ -71,70 +63,26 @@ void Player::jump(const int8_t x, const int8_t y)
   }
 }
 
-void Player::step()
+void Player::step(const bool up, const bool down, const bool left, const bool right, const bool a)
 {
   Direction lastDir = dir;
 
-  if(ab->isPushed(Button::Left))
-  {
+  if(left)
     dir = rotateLeft(dir);
-    battleSteps++;
-  }
 
-  if(ab->isPushed(Button::Right))
+  if(right)
     dir = rotateRight(dir);
 
   if(dir != lastDir)
   {
     moved = true;
-    battleSteps++;
   }
 
-  /*
-  if(ab->isPushed(Button::Up)) //move 1 step in the looking direction
-    move(1,dir);
+  if(up) //move 1 step in the looking direction
+    move(1);
 
-  if(ab->isPushed(Button::Down))
-    move(-1,dir);
-  */
-  if (ab->isPushed(Button::Up) or (ab->isPushed(Button::Down)))
-  {
-    //calculate next space
-    int8_t nx=0,ny=0;   //using int8 rather than uint8 so negative numbers are possible
-    if (dir==Direction::East)
-      { nx = 1; }
-    if (dir==Direction::South)
-      { ny = 1; }
-    if (dir==Direction::West)
-      { nx = -1; }
-    if (dir==Direction::North)
-      { ny = -1; }
- 
-    if (ab->isPushed(Button::Down))  //if they pressed down, flip the direction
-    {
-      nx = 0-nx;
-      ny = 0-ny;
-    }
- 
-    nx += x;  //calculate new coordinate
-    ny += y;
-
-    jump(nx,ny);
-    moved = true;
-  }
-
-  if(moved)
-  {
-    Serial.print(F("Steps : "));
-    Serial.println(battleSteps);    
-    if ((battleSteps > 2) && (random(battleSteps) > 10))
-    {
-      battleSteps = 0;
-      Serial.println(F("Battle!"));
-      ab->setState(stateBattle);
-    }
-    
-  }
+  if(down)
+    move(-1);
 
   if(world->getItem(x,y))
   {

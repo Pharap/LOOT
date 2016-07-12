@@ -15,7 +15,6 @@ class Player
     
   public:
     int8_t x, y; //needs to be signed so checking negative positions doesn't bug out
-    uint8_t battleSteps;  //battle
     uint8_t hp, sp;
     char name[8];
 
@@ -27,7 +26,7 @@ class Player
     void changeDirection(const Direction direction);
     bool hasMoved(void) const;
     void resetMoved(void);
-    void move(const int8_t distance,const Direction dir);
-    void jump(const int8_t x, const int8_t y);
-    void step();
+    void move(const int8_t distance);
+    void jump(const uint8_t x, const uint8_t y);
+    void step(const bool up, const bool down, const bool left, const bool right, const bool a);
 };
