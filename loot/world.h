@@ -29,7 +29,7 @@ class World
   public:
     uint8_t width,height;
     uint8_t level[128]; //biggest map size, 16*16, 32*8, etc
-    ChestList chest;
+    ChestList chests;
     uint8_t itemType[16];
     uint8_t itemAction[16]; // I don't even want to know how an arbitrary number is supposed to represent an action
 
