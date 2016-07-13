@@ -53,15 +53,13 @@ void Menu::step(void)
 
     if(ab->isPushed(Button::Up))
     {
-      --select;
+      if(select > 0) --select;
     }
 
     if(ab->isPushed(Button::Down))
     {
-      ++select;
+      if(select < 2) ++select;
     }
-
-    select = min(max(select, 0), 2); //seriously, no clamp()?
   }
 }
 
