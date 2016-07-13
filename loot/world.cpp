@@ -29,13 +29,6 @@ int8_t Chest::getY() const
   return y;
 }
 
-void Chest::set(const int8_t x,const int8_t y,const uint8_t type)
-{
-  this->x = x;
-  this->y = y;
-  this->type = type;
-}
-
 
 //world
 void World::init(void)
