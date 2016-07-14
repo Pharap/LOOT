@@ -69,7 +69,7 @@ class System : public Arduboy
     this->drawBitmap(x, y, mask+2, pgm_read_byte(bitmap), pgm_read_byte(bitmap+1),0);
     this->drawBitmap(x, y, bitmap+2, pgm_read_byte(bitmap), pgm_read_byte(bitmap+1),1);
   }
-
+  
   void drawSpriteCentered(int8_t x, int8_t y, const byte* bitmap, byte c)
   {  
     int8_t w = pgm_read_byte(bitmap);
