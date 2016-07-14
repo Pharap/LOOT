@@ -84,9 +84,10 @@ void Player::step(const bool up, const bool down, const bool left, const bool ri
   if(down)
     move(-1);
 
-  if(world->getItem(x,y))
+  if(world->hasItem(x,y))
   {
-    Serial.println(F("Item!"));
+    Serial.print(F("Item!"));
+    Serial.println(world->getItemID(x,y));
     //ab->fillScreen(0);
     //world->setItem(world->getItemID(x,y),x,y,0);
   }
