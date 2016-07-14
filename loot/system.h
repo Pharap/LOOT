@@ -59,12 +59,12 @@ class System : public Arduboy
     return ((this->prevInput & static_cast<uint8_t>(button)) != 0) && ((this->nowInput & static_cast<uint8_t>(button)) == 0);
   }
 
-  void drawSprite(int8_t x, int8_t y, const uint8_t* bitmap, byte c) 
+  void drawSprite(int8_t x, int8_t y, const uint8_t* bitmap, uint8_t c) 
   {
     this->drawBitmap(x ,y , bitmap+2, pgm_read_byte(bitmap), pgm_read_byte(bitmap+1), c);
   }
 
-  void drawSpriteMasked(int8_t x,int8_t y, const uint8_t* bitmap, const byte* mask)
+  void drawSpriteMasked(int8_t x,int8_t y, const uint8_t* bitmap, const uint8_t* mask)
   {
     this->drawBitmap(x, y, mask+2, pgm_read_byte(bitmap), pgm_read_byte(bitmap+1),0);
     this->drawBitmap(x, y, bitmap+2, pgm_read_byte(bitmap), pgm_read_byte(bitmap+1),1);
@@ -76,8 +76,8 @@ class System : public Arduboy
     int8_t h = pgm_read_byte(bitmap+1);
     this->drawBitmap(x-(w/2), y-(h/2), bitmap+2, w, h, c);
   }  
-  
-  void drawSpriteMaskedCentered(int8_t x, int8_t y, const uint8_t* bitmap, const byte* mask)
+
+  void drawSpriteMaskedCentered(int8_t x, int8_t y, const uint8_t* bitmap, const uint8_t* mask)
   {  
     int8_t w,h;
     w = pgm_read_byte(bitmap);
