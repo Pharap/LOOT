@@ -29,5 +29,5 @@ class Player
     void resetMoved(void);
     void move(const int8_t distance);
     void jump(const uint8_t x, const uint8_t y);
-    void step(const bool up, const bool down, const bool left, const bool right, const bool a);
+    void step();
 };

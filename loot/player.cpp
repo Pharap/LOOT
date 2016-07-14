@@ -64,14 +64,14 @@ void Player::jump(const uint8_t x, const uint8_t y)
   }
 }
 
-void Player::step(const bool up, const bool down, const bool left, const bool right, const bool a)
+void Player::step()
 {
   Direction lastDir = dir;
 
-  if(left)
+  if(ab->isPushed(Button::Left))
     dir = rotateLeft(dir);
 
-  if(right)
+  if(ab->isPushed(Button::Right))
     dir = rotateRight(dir);
 
   if(dir != lastDir)
@@ -79,10 +79,10 @@ void Player::step(const bool up, const bool down, const bool left, const bool ri
     moved = true;
   }
 
-  if(up) //move 1 step in the looking direction
+  if(ab->isPushed(Button::Up)) //move 1 step in the looking direction
     move(1);
 
-  if(down)
+  if(ab->isPushed(Button::Down))
     move(-1);
 
   if(world->getItem(x,y))
@@ -101,5 +101,4 @@ void Player::step(const bool up, const bool down, const bool left, const bool ri
       battleSteps = 0;
     }
   }
-
 }
