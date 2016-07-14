@@ -26,6 +26,8 @@ using ChestList = List<Chest, 16>;
 
 class World
 {
+  private:
+    uint8_t battleTendency;
   public:
     uint8_t width,height;
     uint8_t level[128]; //biggest map size, 16*16, 32*8, etc
@@ -35,6 +37,8 @@ class World
 
     void init(void);
     void step(void);
+
+    //map stuff
     void load(uint8_t *ID);
     void set(const int8_t x, const int8_t y, const uint8_t wall);
     void setFast(const int8_t x, const int8_t y, const uint8_t wall);
@@ -43,12 +47,14 @@ class World
     uint8_t getFast(const int8_t x, const int8_t y) const;
     bool inbound(const int8_t x, const int8_t y) const;
 
-    //stupid
+    //battle stuff
+    uint8_t getBattleChance(void);
+
+    //item stuff
     void setItem(const uint8_t item, const int8_t x, const int8_t y, const uint8_t type);
     uint8_t getItemType(const int8_t x, const int8_t y);
     uint8_t getItemID(const int8_t x, const int8_t y);
     // This should be 'hasItem',
     // 'getItem' implies you can actually retrieve a reference to said item
     bool getItem(const int8_t x, const int8_t y);
-    //stupid
 };

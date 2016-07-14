@@ -52,6 +52,8 @@ void World::init(void)
   {
     level[i] = leveldata[i];
   };
+  battleTendency = 8;
+
   // No need to assign to locals anymore
   //Chest chest1 = Chest(0,1,1);
   //Chest chest2 = Chest(1,6,1);
@@ -114,6 +116,13 @@ bool World::inbound(const int8_t x, const int8_t y) const
 void World::step(void)
 {
 
+}
+
+
+////battle stuff
+uint8_t World::getBattleChance(void)
+{
+  return battleTendency;
 }
 
 //////

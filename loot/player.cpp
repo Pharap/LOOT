@@ -95,8 +95,8 @@ void Player::step(const bool up, const bool down, const bool left, const bool ri
   if(moved)
   {
     Serial.println(battleSteps);
-    if (!(world->getItem(x,y)) && (battleSteps > 2) && (random(battleSteps) > 8) )  //Magic numbers, hiss. Store battle tendency in map data?
-    {
+    if (!(world->getItem(x,y)) && (random(battleSteps) > world->getBattleChance()) )
+    { 
       Serial.println(F("Battle!"));
       battleSteps = 0;
     }
