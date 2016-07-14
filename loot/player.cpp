@@ -86,7 +86,9 @@ void Player::step(const bool up, const bool down, const bool left, const bool ri
 
   if(world->hasItem(x,y) && moved)
   {
-    Serial.print(F("Item!"));
+    Serial.print(F("Item! Type : "));
+    Serial.print((uint8_t)world->getItemType(x,y));
+    Serial.print(F(" ID : "));
     Serial.println(world->getItemID(x,y));
   }
 }
