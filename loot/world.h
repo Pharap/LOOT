@@ -16,7 +16,8 @@ private:
 public:
     Chest(void) = default;
     Chest(const int8_t x, const int8_t y, const uint8_t type); 
-    void setType(uint8_t type); // I find the presence of only 1 set odd, but oh well
+    void setType(const uint8_t type); // I find the presence of only 1 set odd, but oh well
+    void setPos(const int8_t x, const int8_t y);    //boom, there you go
     uint8_t getType(void) const;
     int8_t getX(void) const;
     int8_t getY(void) const;
@@ -49,6 +50,6 @@ class World
     uint8_t getItemID(const int8_t x, const int8_t y);
     // This should be 'hasItem',
     // 'getItem' implies you can actually retrieve a reference to said item
-    bool getItem(const int8_t x, const int8_t y);
+    bool hasItem(const int8_t x, const int8_t y);
     //stupid
 };

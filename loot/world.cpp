@@ -9,9 +9,15 @@ Chest::Chest(const int8_t x, const int8_t y, const uint8_t type)
   this->type = type;
 }
 
-void Chest::setType(uint8_t type)
+void Chest::setType(const uint8_t type)
 {
   this->type = type;
+}
+
+void Chest::setPos(const int8_t x, const int8_t y)
+{
+  this->x = x;
+  this->y = y;
 }
 
 uint8_t Chest::getType() const
@@ -138,7 +144,7 @@ uint8_t World::getItemType(const int8_t x, const int8_t y)
 // Or better yet you could let the caller check the type directly from the returned chest.
 // Also, please remind me to one day educate you on the wonders of Haskell's Maybe type 
 // and why C++17 is introducing a std::optional type.
-bool World::getItem(const int8_t x, const int8_t y)
+bool World::hasItem(const int8_t x, const int8_t y)
 {
   for(uint8_t i; i<16; ++i) //loop every chest
   {
