@@ -51,6 +51,7 @@ void Player::move(const int8_t distance)
     case Direction::North: ny = -1; break;
   }
   this->jump(this->x + (nx * distance), this->y + (ny * distance));
+  this->battleSteps += abs(distance);
 }
 
 void Player::jump(const uint8_t x, const uint8_t y)
@@ -90,4 +91,15 @@ void Player::step(const bool up, const bool down, const bool left, const bool ri
     //ab->fillScreen(0);
     //world->setItem(world->getItemID(x,y),x,y,0);
   }
+
+  if(moved)
+  {
+    Serial.println(battleSteps);
+    if (!(world->getItem(x,y)) && (battleSteps > 2) && (random(battleSteps) > 8) )  //Magic numbers, hiss. Store battle tendency in map data?
+    {
+      Serial.println(F("Battle!"));
+      battleSteps = 0;
+    }
+  }
+
 }
