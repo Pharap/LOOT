@@ -64,7 +64,7 @@ void Game::step(void)
     }
     case stateGame:
     {
-      player->step(ab->isPushed(Button::Up), ab->isPushed(Button::Down), ab->isPushed(Button::Left), ab->isPushed(Button::Right));
+      player->step();
       render->step();
       render->draw();
       player->resetMoved();
