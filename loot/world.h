@@ -1,6 +1,7 @@
 #pragma once
 #include <stdint.h>
 #include "list.h"
+#include "item.h"
 
 // Chest needs its own file
 class Chest
@@ -10,15 +11,15 @@ private:
     // stop yourself,
     // read this: http://www.cprogramming.com/c++11/c++11-nullptr-strongly-typed-enum-class.html,
     // and promptly create a new file with a nicely defined enum class
-    uint8_t type;
+    ItemType type;
     int8_t x,y;
 
 public:
     Chest(void) = default;
-    Chest(const int8_t x, const int8_t y, const uint8_t type); 
-    void setType(const uint8_t type); // I find the presence of only 1 set odd, but oh well
+    Chest(const int8_t x, const int8_t y, const ItemType type); 
+    void setType(const ItemType type); // I find the presence of only 1 set odd, but oh well
     void setPos(const int8_t x, const int8_t y);    //boom, there you go
-    uint8_t getType(void) const;
+    ItemType getType(void) const;
     int8_t getX(void) const;
     int8_t getY(void) const;
 };
@@ -45,8 +46,8 @@ class World
     bool inbound(const int8_t x, const int8_t y) const;
 
     //stupid
-    void setItem(const uint8_t item, const int8_t x, const int8_t y, const uint8_t type);
-    uint8_t getItemType(const int8_t x, const int8_t y);
+    void setItem(const uint8_t item, const int8_t x, const int8_t y, const ItemType type);
+    ItemType getItemType(const int8_t x, const int8_t y);
     uint8_t getItemID(const int8_t x, const int8_t y);
     // This should be 'hasItem',
     // 'getItem' implies you can actually retrieve a reference to said item
