@@ -14,6 +14,7 @@ void Battle::step(void)
 
 void Battle::draw(void)
 {
-	
+	ab->setCursor(64,0);
+	ab->print(F("BATTLE!"));
 }
 
