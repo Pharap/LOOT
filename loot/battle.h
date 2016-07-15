@@ -1,18 +1,20 @@
 #pragma once
 #include <stdint.h>
+#include "system.h"
 #include "enemytype.h"
 
 class Fighter
 {
 private:
 	int8_t hp;
+	EnemyType type;
 	const uint8_t * sprite;
 public:
-	Fighter(EnemyType, int8_t hp);
-	int8_t getHp();
-	void setHp(const int8_t hp);
+	Fighter(const EnemyType,const int8_t hp);
+	int8_t getHP();
+	void setHP(const int8_t hp);
 	void setSprite();
-}
+};
 
 class Battle
 {
@@ -27,4 +29,4 @@ public:
 	void begin(void);
 	void step(void);
 	void draw(void);
-}
+};

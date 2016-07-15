@@ -1,7 +1,7 @@
 #include "battle.h"
 #include "enemytype.h"
 
-Fighter::Fighter(EnemyType type, int8_t hp);
+Fighter::Fighter(const EnemyType type,const int8_t hp)
 {
 	this->type = type;
 	this->hp = hp;
@@ -17,3 +17,7 @@ int8_t Fighter::getHP()
 	return this->hp;
 }
 
+void Battle::draw(void)
+{
+	
+}
