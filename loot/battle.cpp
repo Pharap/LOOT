@@ -1,7 +1,7 @@
 #include "battle.h"
 #include "enemytype.h"
 
-Fighter::Fighter(EnemyType type, int8_t hp);()
+Fighter::Fighter(EnemyType type, int8_t hp);
 {
 	this->type = type;
 	this->hp = hp;
