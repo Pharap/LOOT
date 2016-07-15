@@ -1,6 +1,7 @@
 #include "game.h"
 #include "system.h"
 #include "render.h"
+#include "battle.h"
 #include "menu.h"
 #include "player.h"
 #include "world.h"
@@ -8,14 +9,16 @@
 #include "direction.h"
 #include "button.h"
 
-Game::Game(System & ab, Render & render, Menu & menu, Player & player, World & world)
+Game::Game(System & ab, Render & render, Menu & menu, Player & player, World & world, Battle & battle)
 {
   this->ab = &ab;
   this->menu = &menu;
   this->render = &render;
   this->player = &player;
   this->world = &world;
+  this->battle = &battle;
 }
+
 
 void Game::save(const bool slot)
 {
@@ -72,14 +75,10 @@ void Game::step(void)
     }
     case stateBattle:
     {
+      battle->step();
+
       render->drawView();
-      ab->drawRect(24,40,17,16,1);  //enemy placement test
-      ab->setCursor(66,2);
-      ab->print(F("Battle"));
-      ab->setCursor(66,10);
-      ab->print(F("goes here!"));
-      if(ab->isPushed(Button::A))
-        ab->setState(stateGame);
+      battle->draw();
       break;
     }
   }

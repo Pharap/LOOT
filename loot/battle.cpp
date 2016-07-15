@@ -17,7 +17,13 @@ int8_t Fighter::getHP()
 	return this->hp;
 }
 
+void Battle::step(void)
+{
+
+}
+
 void Battle::draw(void)
 {
 	
 }
+

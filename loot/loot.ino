@@ -8,13 +8,15 @@
 #include "world.h"
 #include "player.h"
 #include "menu.h"
+#include "battle.h"
 
 System ab = System();
 World world = World();
+Battle battle = Battle(ab);
 Player player = Player(ab, world);
 Menu menu = Menu(ab);
 Render render = Render(ab, world, player);
-Game game = Game(ab, render, menu, player, world); //controls everything!
+Game game = Game(ab, render, menu, player, world, battle); //controls everything!
 
 void setup(void)
 {
