@@ -94,18 +94,17 @@ void Player::step()
   if(ab->isPushed(Button::Down))
     move(-1);
 
-  if(world->hasItem(x,y) && moved)
-  {
-    Serial.print(F("Item! Type : "));
-    Serial.print((uint8_t)world->getItemType(x,y));
-    Serial.print(F(" ID : "));
-    Serial.println(world->getItemID(x,y));
-  }
-
   if(moved)
   {
     Serial.println(battleSteps);
-    if (!(world->hasItem(x,y)) && (random(battleSteps) > world->getBattleChance()) )
+    if (world->hasItem(x,y))
+    {
+      Serial.print(F("Item! Type : "));
+      Serial.print((uint8_t)world->getItemType(x,y));
+      Serial.print(F(" ID : "));
+      Serial.println(world->getItemID(x,y));
+    }
+    else if (random(battleSteps) > world->getBattleChance())
     { 
       ab->setState(stateBattle);
       Serial.println(F("Battle!"));
