@@ -4,6 +4,9 @@
 #include "world.h"
 #include "player.h"
 #include "direction.h"
+#include "tiletype.h"
+#include "itemtype.h"
+
 
 Render::Render(System & ab,World & world, Player & player)
 {
@@ -14,9 +17,9 @@ Render::Render(System & ab,World & world, Player & player)
 
 inline bool Render::wallCheck(const int8_t x, const int8_t y)
 {
-  return (world->get(x, y) == 1);
+  return (world->get(x, y) != TileType::None);
 }
-inline uint8_t Render::itemCheck(const int8_t x, const int8_t y)
+inline bool Render::itemCheck(const int8_t x, const int8_t y)
 {
   return (world->hasItem(x, y));
 }
@@ -45,7 +48,6 @@ void Render::calculateView(const int8_t x, const int8_t y, const Direction dir)
     ys[0]=-3; ys[1]=-3; ys[2]=-3; ys[3]=-2; ys[4]=-2; ys[5]=-2; ys[6]=-1; ys[7]=-1; ys[8]=-1; ys[9]=0; ys[10]=0; ys[11]=0;
   }
   */
-
   static const int8_t arrA[12] = { 3, 3, 3, 2, 2, 2, 1, 1, 1, 0, 0, 0 };
   static const int8_t arrB[12] = { -1, 0, +1, -1, 0, +1, -1, 0, +1, -1, 0, +1 };
 
@@ -61,9 +63,9 @@ void Render::calculateView(const int8_t x, const int8_t y, const Direction dir)
     }
 
     wallShow[i] = wallCheck(x + xs, y + ys);
-    itemShow[i] = false;  
+    itemShow[i] = false;
 
-    if(wallShow[i] == 0)
+    if(wallShow[i] == false)
       itemShow[i] = itemCheck(x + xs, y + ys);
   }
 
@@ -101,8 +103,9 @@ void Render::drawView(void)
   const uint8_t wallSize[] = { 6, 10, 18, 32, 64 };  //size in pixels of each step
   uint8_t wall = 0;  //current wall
 
-  int drawSize, halfSize, backSize, halfBackSize, left, leftBack, top, topBack;
-  for(char i = 0; i < 4; ++i) //distance
+  uint8_t drawSize, halfSize, backSize, halfBackSize, top, topBack;
+  int8_t left, leftBack;
+  for(uint8_t i = 0; i < 4; ++i) //distance
   {
     drawSize = wallSize[i + 1]; halfSize = drawSize / 2;      //size of walls on screen
     backSize = wallSize[i];   halfBackSize = backSize / 2;  //size of the backside of the walls, for depth
@@ -111,7 +114,7 @@ void Render::drawView(void)
     topBack  = 32 - halfBackSize;         //y position of the walls on screen
     top      = 32 - halfSize;
 
-    for(char n = 0; n < 3; ++n) //left->right
+    for(uint8_t n = 0; n < 3; ++n) //left->right
     {
       if (wallShow[wall]) //if wall exists, draw it
       {
@@ -139,7 +142,7 @@ void Render::drawView(void)
           ab->fillRect(left, top, wid, drawSize, 0);     //blank out wall area and draw then draw the outline
           ab->drawRect(left, top, wid+1, drawSize + 1, 1);
         }
-      }
+      } 
       else if(itemShow[wall])
       {
         int8_t itemx = (left + drawSize / 4);
@@ -168,15 +171,16 @@ void Render::drawView(void)
   ab->fillRect(64, 0, 16, 64, 0);  //hide any leaky drawing
   ab->drawRect(0, 0, 64, 64, 1);
 
-  ab->setCursor(4, 4);
+  const uint8_t * image;
   switch(player->getDirection())
   {
-    case Direction::East: { ab->print(F("EAST")); break; }
-    case Direction::South: { ab->print(F("SOUTH")); break; }
-    case Direction::West: { ab->print(F("WEST")); break; }
-    case Direction::North: {ab->print(F("NORTH")); break; }
-    default: { ab->print(F("Wat")); break; }
+    case Direction::North: { image = imgCompassN; break; }
+    case Direction::East:  { image = imgCompassE; break; }
+    case Direction::South: { image = imgCompassS; break; }
+    case Direction::West:  { image = imgCompassW; break; }
   }
+  ab->drawSpriteCentered(32,6,image,1);
+
   //printf(" Direction: %u", player->getDirection());
 }
 
@@ -186,7 +190,7 @@ void Render::drawMap(void)
   const uint8_t offsetx = 63;
   for(int iy = 0, jy = 0; iy < 8; ++iy, jy += 8)
     for(int ix = 0, jx = 0; ix < 8; ++ix, jx += 8)
-      if (world->get(ix, iy))
+      if (wallCheck(ix,iy))
         ab->drawRect(offsetx + jx, jy, 9, 9, 1);
 
   { // Explicit scoping in the hopes the compiler will ditch these 6 variables asap
