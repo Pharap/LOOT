@@ -1,7 +1,7 @@
 #pragma once
 #include <stdint.h>
 #include "list.h"
-#include "item.h"
+#include "itemtype.h"
 
 // Chest needs its own file
 class Chest

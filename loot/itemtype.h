@@ -3,8 +3,8 @@
 
 enum class ItemType : uint8_t
 {
-  none,
-  testItem,
-  testItem2,
+  None,
+  TestItem,
+  TestItem2,
 };
 

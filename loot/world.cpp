@@ -1,5 +1,5 @@
 #include "world.h"
-#include "item.h"
+#include "itemtype.h"
 #include <stdint.h>
 
 ///chests
@@ -64,8 +64,8 @@ void World::init(void)
   //Chest chest2 = Chest(1,6,1);
   
   // Creates a chest and adds it straight to the list
-  chests.add(Chest(0, 1, ItemType::testItem));
-  chests.add(Chest(1, 6, ItemType::testItem));
+  chests.add(Chest(0, 1, ItemType::TestItem));
+  chests.add(Chest(1, 6, ItemType::TestItem2));
 }
 
 void World::load(uint8_t *ID) //reads a map from PROGMEM and loads it into memory
@@ -138,7 +138,7 @@ ItemType World::getItemType(const int8_t x, const int8_t y)
     if ((chests[i].getX() == x) && (chests[i].getY() == y)) //if chest is on position, return contents
       return (chests[i].getType());
   }
-  return ItemType::none;
+  return ItemType::None;
 }
 
 // If this was actually returning a reference the chest, you could use that in the getItemType function.
