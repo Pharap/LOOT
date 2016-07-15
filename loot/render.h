@@ -1,6 +1,8 @@
 #pragma once
 #include <stdint.h>
 #include "direction.h"
+#include "tiletype.h"
+#include "itemtype.h"
 
 class System;
 class World;
@@ -15,14 +17,15 @@ class Render
 
     bool wallShow[11] = {};
     bool itemShow[11] = {};
+
+    bool wallCheck(const int8_t x, const int8_t y);
+    bool itemCheck(const int8_t x, const int8_t y);
   public:
     Render(System & ab,World & world,Player & player);
 
     void step(void);
     void draw(void);
 
-    bool wallCheck(const int8_t x, const int8_t y);
-    uint8_t itemCheck(const int8_t x, const int8_t y);
     void calculateView(const int8_t x, const int8_t y, const Direction dir);
     void drawView(void);
     void drawMap(void);

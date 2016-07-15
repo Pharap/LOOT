@@ -2,6 +2,7 @@
 #include "world.h"
 #include "system.h"
 #include "direction.h"
+#include "TileType.h"
 
 Player::Player(System & ab, World & world)
 {
@@ -63,7 +64,7 @@ void Player::move(const int8_t distance)
 
 void Player::jump(const uint8_t x, const uint8_t y)
 {
-  if (world->get(x, y) == 0)
+  if (world->get(x, y) == TileType::None)
   {
     this->x = x;
     this->y = y;

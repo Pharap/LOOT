@@ -2,6 +2,7 @@
 #include <stdint.h>
 #include "list.h"
 #include "Itemtype.h"
+#include "TileType.h"
 
 // Chest needs its own file
 class Chest
@@ -31,7 +32,7 @@ class World
     uint8_t battleTendency;
   public:
     uint8_t width,height;
-    uint8_t level[128]; //biggest map size, 16*16, 32*8, etc
+    TileType level[128]; //biggest map size, 16*16, 32*8, etc
     ChestList chests;
     uint8_t itemType[16];
     uint8_t itemAction[16]; // I don't even want to know how an arbitrary number is supposed to represent an action
@@ -41,11 +42,11 @@ class World
 
     //map stuff
     void load(uint8_t *ID);
-    void set(const int8_t x, const int8_t y, const uint8_t wall);
-    void setFast(const int8_t x, const int8_t y, const uint8_t wall);
+    void set(const int8_t x, const int8_t y, const TileType type);
+    void setFast(const int8_t x, const int8_t y, const TileType type);
     bool validSize(const uint8_t width, const uint8_t height);
-    uint8_t get(const int8_t x, const int8_t y) const;
-    uint8_t getFast(const int8_t x, const int8_t y) const;
+    TileType get(const int8_t x, const int8_t y) const;
+    TileType getFast(const int8_t x, const int8_t y) const;
     bool inbound(const int8_t x, const int8_t y) const;
 
     //battle stuff
