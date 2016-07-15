@@ -53,7 +53,7 @@ void World::init(void)
   {
     level[i] = (TileType)leveldata[i];
   };
-  battleTendency = 8;
+  battleTendency = 4;
 
   // No need to assign to locals anymore
   //Chest chest1 = Chest(0,1,1);
