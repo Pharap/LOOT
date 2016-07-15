@@ -13,7 +13,7 @@
 System ab = System();
 World world = World();
 Battle battle = Battle(ab);
-Player player = Player(ab, world);
+Player player = Player(ab, world, battle);
 Menu menu = Menu(ab);
 Render render = Render(ab, world, player);
 Game game = Game(ab, render, menu, player, world, battle); //controls everything!

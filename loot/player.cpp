@@ -3,12 +3,14 @@
 #include "world.h"
 #include "system.h"
 #include "direction.h"
+#include "battle.h"
 #include "TileType.h"
 
-Player::Player(System & ab, World & world)
+Player::Player(System & ab, World & world, Battle & battle)
 {
   this->ab = &ab;
   this->world = &world;
+  this->battle = &battle;
 }
 
 void Player::init(void)
@@ -107,6 +109,7 @@ void Player::step()
     Serial.println(battleSteps);
     if (!(world->hasItem(x,y)) && (random(battleSteps) > world->getBattleChance()) )
     { 
+      battle->start();
       ab->setState(stateBattle);
       Serial.println(F("Battle!"));
       battleSteps = 0;
