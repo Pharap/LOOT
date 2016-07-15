@@ -4,6 +4,9 @@
 #include "world.h"
 #include "player.h"
 #include "direction.h"
+#include "tiletype.h"
+#include "itemtype.h"
+
 
 Render::Render(System & ab,World & world, Player & player)
 {
@@ -14,9 +17,9 @@ Render::Render(System & ab,World & world, Player & player)
 
 inline bool Render::wallCheck(const int8_t x, const int8_t y)
 {
-  return (world->get(x, y) == 1);
+  return (world->get(x, y) != TileType::None);
 }
-inline uint8_t Render::itemCheck(const int8_t x, const int8_t y)
+inline bool Render::itemCheck(const int8_t x, const int8_t y)
 {
   return (world->hasItem(x, y));
 }
@@ -45,7 +48,6 @@ void Render::calculateView(const int8_t x, const int8_t y, const Direction dir)
     ys[0]=-3; ys[1]=-3; ys[2]=-3; ys[3]=-2; ys[4]=-2; ys[5]=-2; ys[6]=-1; ys[7]=-1; ys[8]=-1; ys[9]=0; ys[10]=0; ys[11]=0;
   }
   */
-
   static const int8_t arrA[12] = { 3, 3, 3, 2, 2, 2, 1, 1, 1, 0, 0, 0 };
   static const int8_t arrB[12] = { -1, 0, +1, -1, 0, +1, -1, 0, +1, -1, 0, +1 };
 
@@ -61,9 +63,9 @@ void Render::calculateView(const int8_t x, const int8_t y, const Direction dir)
     }
 
     wallShow[i] = wallCheck(x + xs, y + ys);
-    itemShow[i] = false;  
+    itemShow[i] = false;
 
-    if(wallShow[i] == 0)
+    if(wallShow[i] == false)
       itemShow[i] = itemCheck(x + xs, y + ys);
   }
 
@@ -188,7 +190,7 @@ void Render::drawMap(void)
   const uint8_t offsetx = 63;
   for(int iy = 0, jy = 0; iy < 8; ++iy, jy += 8)
     for(int ix = 0, jx = 0; ix < 8; ++ix, jx += 8)
-      if (world->get(ix, iy))
+      if (wallCheck(ix,iy))
         ab->drawRect(offsetx + jx, jy, 9, 9, 1);
 
   { // Explicit scoping in the hopes the compiler will ditch these 6 variables asap

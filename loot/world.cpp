@@ -51,7 +51,7 @@ void World::init(void)
   };
   for(uint8_t i=0; i<64; ++i)
   {
-    level[i] = leveldata[i];
+    level[i] = (TileType)leveldata[i];
   };
   battleTendency = 8;
 
@@ -86,25 +86,25 @@ bool World::validSize(const uint8_t width, const uint8_t height)  //will our wor
   return (width*height <= 256);
 }
 
-void World::set(const int8_t x, const int8_t y, const uint8_t wall)
+void World::set(const int8_t x, const int8_t y, const TileType type)
 {
   if(inbound(x,y))
-    level[(y*width)+x] = wall;
+    level[(y*width)+x] = type;
 }
 
-void World::setFast(const int8_t x, const int8_t y, const uint8_t wall)
+void World::setFast(const int8_t x, const int8_t y, const TileType type)
 {
-  level[(y*width)+x] = wall;
+  level[(y*width)+x] = type;
 }
 
-uint8_t World::get(const int8_t x, const int8_t y) const
+TileType World::get(const int8_t x, const int8_t y) const
 {
   if(inbound(x,y))
     return level[(y*width)+x];
   else
-    return 1;  //outside the map is a sea of walls
+    return TileType::Wall;  //outside the map is a sea of walls
 }
-uint8_t World::getFast(const int8_t x, const int8_t y) const
+TileType World::getFast(const int8_t x, const int8_t y) const
 {
   return level[(y*width)+x];
 }
