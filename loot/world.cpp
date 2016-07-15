@@ -1,20 +1,21 @@
 #include "world.h"
+#include "itemtype.h"
 #include <stdint.h>
 
 ///chests
-Chest::Chest(const int8_t x, const int8_t y, const uint8_t type)
+Chest::Chest(const int8_t x, const int8_t y, const ItemType type)
 {
   this->x = x;
   this->y = y;
   this->type = type;
 }
 
-void Chest::setType(uint8_t type)
+void Chest::setType(ItemType type)
 {
   this->type = type;
 }
 
-uint8_t Chest::getType() const
+ItemType Chest::getType() const
 {
   return type;
 }
@@ -59,8 +60,8 @@ void World::init(void)
   //Chest chest2 = Chest(1,6,1);
   
   // Creates a chest and adds it straight to the list
-  chests.add(Chest(0, 1, 1));
-  chests.add(Chest(1, 6, 1));
+  chests.add(Chest(0, 1, ItemType::TestItem));
+  chests.add(Chest(1, 6, ItemType::TestItem2));
 }
 
 void World::load(uint8_t *ID) //reads a map from PROGMEM and loads it into memory
@@ -129,7 +130,7 @@ uint8_t World::getBattleChance(void)
 //BURN EVERYTHING BELOW THIS LINE
 /////
 
-uint8_t World::getItemType(const int8_t x, const int8_t y)
+ItemType World::getItemType(const int8_t x, const int8_t y)
 {
   //this is horrible please change
   for(uint8_t i; i<16; ++i) //loop every chest
@@ -140,14 +141,14 @@ uint8_t World::getItemType(const int8_t x, const int8_t y)
     if ((chests[i].getX() == x) && (chests[i].getY() == y)) //if chest is on position, return contents
       return (chests[i].getType());
   }
-  return false;
+  return ItemType::None;
 }
 
 // If this was actually returning a reference the chest, you could use that in the getItemType function.
 // Or better yet you could let the caller check the type directly from the returned chest.
 // Also, please remind me to one day educate you on the wonders of Haskell's Maybe type 
 // and why C++17 is introducing a std::optional type.
-bool World::getItem(const int8_t x, const int8_t y)
+bool World::hasItem(const int8_t x, const int8_t y)
 {
   for(uint8_t i; i<16; ++i) //loop every chest
   {
@@ -174,7 +175,7 @@ uint8_t World::getItemID(const int8_t x, const int8_t y)
 // Ultimately I'm concerned about other code being able to effectively overwrite all chests though.
 // Maybe now ChestList is available you should change this to an add function that doesn't need an index
 // and might potentially fail.
-void World::setItem(const uint8_t item,const int8_t x, const int8_t y, const uint8_t type)
+void World::setItem(const uint8_t item,const int8_t x, const int8_t y, const ItemType type)
 {
   chests[item] = Chest(x,y,type);
 }
