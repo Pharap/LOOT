@@ -10,15 +10,9 @@ Chest::Chest(const int8_t x, const int8_t y, const ItemType type)
   this->type = type;
 }
 
-void Chest::setType(const ItemType type)
+void Chest::setType(ItemType type)
 {
   this->type = type;
-}
-
-void Chest::setPos(const int8_t x, const int8_t y)
-{
-  this->x = x;
-  this->y = y;
 }
 
 ItemType Chest::getType() const
@@ -59,6 +53,8 @@ void World::init(void)
   {
     level[i] = leveldata[i];
   };
+  battleTendency = 8;
+
   // No need to assign to locals anymore
   //Chest chest1 = Chest(0,1,1);
   //Chest chest2 = Chest(1,6,1);
@@ -121,6 +117,13 @@ bool World::inbound(const int8_t x, const int8_t y) const
 void World::step(void)
 {
 
+}
+
+
+////battle stuff
+uint8_t World::getBattleChance(void)
+{
+  return battleTendency;
 }
 
 //////
