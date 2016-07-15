@@ -68,9 +68,6 @@ void Game::step(void)
       render->step();
       render->draw();
       player->resetMoved();
-
-      if(ab->isPushed(Button::A))
-        ab->setState(stateBattle);
       break;
     }
     case stateBattle:

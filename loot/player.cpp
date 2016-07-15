@@ -32,7 +32,7 @@ void Player::changeDirection(const Direction direction)
 
 bool Player::hasMoved(void) const
 {
- return moved; 
+ return moved;
 }
 
 void Player::resetMoved(void)
@@ -51,6 +51,7 @@ void Player::move(const int8_t distance)
     case Direction::North: ny = -1; break;
   }
   this->jump(this->x + (nx * distance), this->y + (ny * distance));
+  this->battleSteps += abs(distance);
 }
 
 void Player::jump(const uint8_t x, const uint8_t y)
@@ -83,4 +84,22 @@ void Player::step()
 
   if(ab->isPushed(Button::Down))
     move(-1);
+
+  if(world->hasItem(x,y) && moved)
+  {
+    Serial.print(F("Item! Type : "));
+    Serial.print((uint8_t)world->getItemType(x,y));
+    Serial.print(F(" ID : "));
+    Serial.println(world->getItemID(x,y));
+  }
+
+  if(moved)
+  {
+    Serial.println(battleSteps);
+    if (!(world->hasItem(x,y)) && (random(battleSteps) > world->getBattleChance()) )
+    { 
+      Serial.println(F("Battle!"));
+      battleSteps = 0;
+    }
+  }
 }
