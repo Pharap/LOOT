@@ -19,7 +19,7 @@ void Menu::init(void)
 
 void Menu::step(void)
 {
-  logoAnim = max(logoAnim - 1, 0);
+  logoAnim = max(logoAnim - 2, 0);
 
   if(logoAnim == 0) //if menu is ready
   {

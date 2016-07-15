@@ -98,6 +98,11 @@ class System : public Arduboy
     return this->lastState;
   }
 
+  void revertState(void) 
+  {
+    this->state = this->lastState;
+  }
+
   bool stateChanged(void) const
   {
     return (this->state != this->lastState);
