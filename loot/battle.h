@@ -4,7 +4,7 @@
 #include "enemytype.h"
 //#include "fighter.h"
 
-//class Fighter;
+class Fighter;
 
 class Battle
 {
@@ -16,7 +16,7 @@ private:
 public:
 	Battle(System & ab);
 
-	void begin(void);
 	void step(void);
 	void draw(void);
+	void start()
 };

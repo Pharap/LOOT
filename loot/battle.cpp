@@ -1,6 +1,6 @@
 #include "battle.h"
 #include "enemytype.h"
-//#include "fighter.h"
+#include "fighter.h"
 
 Battle::Battle(System & ab)
 {
