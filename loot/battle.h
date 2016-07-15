@@ -18,5 +18,5 @@ public:
 
 	void step(void);
 	void draw(void);
-	void start()
+	void start(void);
 };
