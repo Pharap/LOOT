@@ -168,15 +168,16 @@ void Render::drawView(void)
   ab->fillRect(64, 0, 16, 64, 0);  //hide any leaky drawing
   ab->drawRect(0, 0, 64, 64, 1);
 
-  ab->setCursor(4, 4);
+  const uint8_t * image;
   switch(player->getDirection())
   {
-    case Direction::East: { ab->print(F("EAST")); break; }
-    case Direction::South: { ab->print(F("SOUTH")); break; }
-    case Direction::West: { ab->print(F("WEST")); break; }
-    case Direction::North: {ab->print(F("NORTH")); break; }
-    default: { ab->print(F("Wat")); break; }
+    case Direction::North: { image = imgCompassN; break; }
+    case Direction::East:  { image = imgCompassE; break; }
+    case Direction::South: { image = imgCompassS; break; }
+    case Direction::West:  { image = imgCompassW; break; }
   }
+  ab->drawSpriteCentered(32,6,image,1);
+
   //printf(" Direction: %u", player->getDirection());
 }
 
