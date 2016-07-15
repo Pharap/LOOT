@@ -101,8 +101,9 @@ void Render::drawView(void)
   const uint8_t wallSize[] = { 6, 10, 18, 32, 64 };  //size in pixels of each step
   uint8_t wall = 0;  //current wall
 
-  int drawSize, halfSize, backSize, halfBackSize, left, leftBack, top, topBack;
-  for(char i = 0; i < 4; ++i) //distance
+  uint8_t drawSize, halfSize, backSize, halfBackSize, top, topBack;
+  int8_t left, leftBack;
+  for(uint8_t i = 0; i < 4; ++i) //distance
   {
     drawSize = wallSize[i + 1]; halfSize = drawSize / 2;      //size of walls on screen
     backSize = wallSize[i];   halfBackSize = backSize / 2;  //size of the backside of the walls, for depth
@@ -111,7 +112,7 @@ void Render::drawView(void)
     topBack  = 32 - halfBackSize;         //y position of the walls on screen
     top      = 32 - halfSize;
 
-    for(char n = 0; n < 3; ++n) //left->right
+    for(uint8_t n = 0; n < 3; ++n) //left->right
     {
       if (wallShow[wall]) //if wall exists, draw it
       {
@@ -139,7 +140,7 @@ void Render::drawView(void)
           ab->fillRect(left, top, wid, drawSize, 0);     //blank out wall area and draw then draw the outline
           ab->drawRect(left, top, wid+1, drawSize + 1, 1);
         }
-      }
+      } 
       else if(itemShow[wall])
       {
         int8_t itemx = (left + drawSize / 4);
