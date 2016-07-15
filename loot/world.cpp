@@ -123,7 +123,7 @@ void World::step(void)
 ////battle stuff
 uint8_t World::getBattleChance(void)
 {
-  return battleTendency;
+  return this->battleTendency;
 }
 
 //////
@@ -148,7 +148,7 @@ ItemType World::getItemType(const int8_t x, const int8_t y)
 // Or better yet you could let the caller check the type directly from the returned chest.
 // Also, please remind me to one day educate you on the wonders of Haskell's Maybe type 
 // and why C++17 is introducing a std::optional type.
-bool World::hasItem(const int8_t x, const int8_t y)
+bool World::hasItem(const int8_t x, const int8_t y) const
 {
   for(uint8_t i; i<16; ++i) //loop every chest
   {

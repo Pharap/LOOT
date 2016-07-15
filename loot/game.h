@@ -6,6 +6,7 @@ class Render;
 class Menu;
 class World;
 class Player;
+class Battle;
 
 class Game
 {
@@ -15,9 +16,10 @@ class Game
     Menu * menu;
     World * world;
     Player * player;
+    Battle * battle;
 
   public:
-    Game(System & ab, Render & render, Menu & menu, Player & player, World & world);
+    Game(System & ab, Render & render, Menu & menu, Player & player, World & world, Battle & battle);
 
     void step(void);
     void draw(void);

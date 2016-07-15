@@ -58,5 +58,5 @@ class World
     uint8_t getItemID(const int8_t x, const int8_t y);
     // This should be 'hasItem',
     // 'getItem' implies you can actually retrieve a reference to said item
-    bool hasItem(const int8_t x, const int8_t y);
+    bool hasItem(const int8_t x, const int8_t y) const;
 };
