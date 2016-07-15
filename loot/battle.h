@@ -1,5 +1,6 @@
 #pragma once
 #include <stdint.h>
+#include "enemytype.h"
 
 class Fighter
 {
@@ -7,9 +8,10 @@ private:
 	int8_t hp;
 	const uint8_t * sprite;
 public:
+	Fighter(EnemyType, int8_t hp);
 	int8_t getHp();
-	void setHp(int8_t hp);
-	void setSprite()
+	void setHp(const int8_t hp);
+	void setSprite();
 }
 
 class Battle
