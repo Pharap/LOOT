@@ -46,9 +46,9 @@ void Player::move(const int8_t distance)
   switch(this->dir)
   {
     //compiler is bugged, neccesitating doing it like this:
-    case Direction::East: nx = 1; ny = 0; break;
+    case Direction::East: nx = 1;  break;
     case Direction::South: ny = 1; nx = 0;break;
-    case Direction::West: nx = -1; ny = 0; break;
+    case Direction::West: nx = -1; break;
     case Direction::North: ny = -1; nx = 0; break;
     /*
     case Direction::East: nx = 1; break;
