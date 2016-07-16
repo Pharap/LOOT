@@ -59,33 +59,30 @@ class System : public Arduboy
     return ((this->prevInput & static_cast<uint8_t>(button)) != 0) && ((this->nowInput & static_cast<uint8_t>(button)) == 0);
   }
 
-  void drawSprite(int8_t x, int8_t y, const uint8_t* bitmap, uint8_t c) 
+  void drawSprite(const int8_t x, const int8_t y, const uint8_t * bitmap, const uint8_t colour) 
   {
-    this->drawBitmap(x ,y , bitmap+2, pgm_read_byte(bitmap), pgm_read_byte(bitmap+1), c);
+    this->drawBitmap(x ,y , bitmap + 2, pgm_read_byte(bitmap + 0), pgm_read_byte(bitmap + 1), colour);
   }
 
-  void drawSpriteMasked(int8_t x,int8_t y, const uint8_t* bitmap, const uint8_t* mask)
+  void drawSpriteMasked(const int8_t x, const int8_t y, const uint8_t * bitmap, const uint8_t* mask)
   {
-    this->drawBitmap(x, y, mask+2, pgm_read_byte(bitmap), pgm_read_byte(bitmap+1),0);
-    this->drawBitmap(x, y, bitmap+2, pgm_read_byte(bitmap), pgm_read_byte(bitmap+1),1);
+    this->drawBitmap(x, y, mask + 2, pgm_read_byte(bitmap + 0), pgm_read_byte(bitmap + 1), 0);
+    this->drawBitmap(x, y, bitmap + 2, pgm_read_byte(bitmap + 0), pgm_read_byte(bitmap + 1), 1);
   }
   
-  void drawSpriteCentred(int8_t x, int8_t y, const uint8_t* bitmap, uint8_t c)
+  void drawSpriteCentred(const int8_t x, const int8_t y, const uint8_t * bitmap, const uint8_t colour)
   {  
-    int8_t w = pgm_read_byte(bitmap);
-    int8_t h = pgm_read_byte(bitmap+1);
-    this->drawBitmap(x-(w/2), y-(h/2), bitmap+2, w, h, c);
+    const int8_t w = pgm_read_byte(bitmap + 0);
+    const int8_t h = pgm_read_byte(bitmap + 1);
+    this->drawBitmap(x - (w / 2), y - (h / 2), bitmap + 2, w, h, colour);
   }  
 
-  void drawSpriteMaskedCentred(int8_t x, int8_t y, const uint8_t* bitmap, const uint8_t* mask)
+  void drawSpriteMaskedCentered(const int8_t x, const int8_t y, const uint8_t * bitmap, const uint8_t* mask)
   {  
-    int8_t w,h;
-    w = pgm_read_byte(bitmap);
-    h = pgm_read_byte(bitmap+1);
-    x -= w/2;
-    y -= h/2;
-    this->drawBitmap(x, y, mask+2, w, h, 0);
-    this->drawBitmap(x, y, bitmap+2, w, h, 1);
+    const int8_t w = pgm_read_byte(bitmap + 0);
+    const int8_t h = pgm_read_byte(bitmap + 1);
+    this->drawBitmap(x - (w / 2), y - (h / 2), mask + 2, w, h, 0);
+    this->drawBitmap(x - (w / 2), y - (h / 2), bitmap + 2, w, h, 1);
   }
 
   uint8_t getState(void) const
