@@ -72,15 +72,15 @@ class System : public Arduboy
   
   void drawSpriteCentred(const int8_t x, const int8_t y, const uint8_t * bitmap, const uint8_t colour)
   {  
-    int8_t w = pgm_read_byte(bitmap + 0);
-    int8_t h = pgm_read_byte(bitmap + 1);
+    const int8_t w = pgm_read_byte(bitmap + 0);
+    const int8_t h = pgm_read_byte(bitmap + 1);
     this->drawBitmap(x - (w / 2), y - (h / 2), bitmap + 2, w, h, colour);
   }  
 
   void drawSpriteMaskedCentered(const int8_t x, const int8_t y, const uint8_t * bitmap, const uint8_t* mask)
   {  
-    int8_t w = pgm_read_byte(bitmap + 0);
-    int8_t h = pgm_read_byte(bitmap + 1);
+    const int8_t w = pgm_read_byte(bitmap + 0);
+    const int8_t h = pgm_read_byte(bitmap + 1);
     this->drawBitmap(x - (w / 2), y - (h / 2), mask + 2, w, h, 0);
     this->drawBitmap(x - (w / 2), y - (h / 2), bitmap + 2, w, h, 1);
   }
