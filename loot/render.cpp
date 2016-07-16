@@ -179,7 +179,7 @@ void Render::drawView(void)
     case Direction::South: { image = imgCompassS; break; }
     case Direction::West:  { image = imgCompassW; break; }
   }
-  ab->drawSpriteCentered(32,6,image,1);
+  ab->drawSpriteCentred(32,6,image,1);
 
   //printf(" Direction: %u", player->getDirection());
 }
