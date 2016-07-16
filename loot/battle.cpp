@@ -9,7 +9,10 @@ Battle::Battle(System & ab)
 
 void Battle::step(void)
 {
-
+	if(ab->isPressed(Button::A))
+	{
+		ab->setState(stateGame);
+	}
 }
 
 void Battle::draw(void)
@@ -18,3 +21,7 @@ void Battle::draw(void)
 	ab->print(F("BATTLE!"));
 }
 
+void Battle::start(void)
+{
+	
+}
