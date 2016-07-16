@@ -52,7 +52,7 @@ void Player::move(const int8_t distance)
     case Direction::West: nx = -distance; break;
     case Direction::North: ny = -distance; break;
   }
-  this->jump( this->x + nx, this->y + ny);
+  this->jump(this->x + nx, this->y + ny);
   this->battleSteps += abs(distance);
 }
 
