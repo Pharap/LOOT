@@ -21,3 +21,7 @@ void Battle::draw(void)
 	ab->print(F("BATTLE!"));
 }
 
+void Battle::start(void)
+{
+	
+}
