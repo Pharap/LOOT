@@ -8,7 +8,7 @@
 #include "itemtype.h"
 
 
-Render::Render(System & ab,World & world, Player & player)
+Render::Render(System & ab, World & world, Player & player)
 {
   this->ab = &ab;
   this->world = &world;
@@ -168,8 +168,8 @@ void Render::drawView(void)
       leftBack += backSize;
     }
   }
-  ab->fillRect(64, 0, 16, 64, 0);  //hide any leaky drawing
-  ab->drawRect(0, 0, 64, 64, 1);
+  ab->fillRect(System::ScreenCentreX, 0, 16, System::ScreenHeight, 0);  //hide any leaky drawing
+  ab->drawRect(0, 0, System::ScreenWidth / 2, System::ScreenHeight, 1);
 
   const uint8_t * image;
   switch(player->getDirection())
@@ -238,16 +238,16 @@ void Render::drawMap(void)
   }
 
   //outlines the map
-  ab->drawLine(offsetx + 64, 0, offsetx + 64, 63, 1);
-  ab->drawLine(offsetx, 63, offsetx + 64, 63, 1);
+  ab->drawLine(offsetx + (System::ScreenWidth / 2), 0, offsetx + (System::ScreenWidth / 2), System::ScreenHeight - 1, 1);
+  ab->drawLine(offsetx, System::ScreenHeight - 1, offsetx + (System::ScreenWidth / 2), System::ScreenHeight - 1, 1);
 }
 
 void Render::drawStats(void)
 {
-  ab->setCursor(66, 2);
+  ab->setCursor(System::ScreenCentreX + 2, 2);
   ab->print(F("HP : "));
-  ab->setCursor(66, 10);
+  ab->setCursor(System::ScreenCentreX + 2, 10);
   ab->print(F("SP : "));
-  ab->setCursor(66, 18);
+  ab->setCursor(System::ScreenCentreX + 2, 18);
   ab->print(F("G  : "));
 }
