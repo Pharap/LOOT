@@ -168,8 +168,8 @@ void Render::drawView(void)
       leftBack += backSize;
     }
   }
-  ab->fillRect(64, 0, 16, 64, 0);  //hide any leaky drawing
-  ab->drawRect(0, 0, 64, 64, 1);
+  ab->fillRect(System::ScreenCentreX, 0, 16, System::ScreenHeight, 0);  //hide any leaky drawing
+  ab->drawRect(0, 0, System::ScreenWidth / 2, System::ScreenHeight, 1);
 
   const uint8_t * image;
   switch(player->getDirection())
@@ -238,8 +238,8 @@ void Render::drawMap(void)
   }
 
   //outlines the map
-  ab->drawLine(offsetx + 64, 0, offsetx + 64, 63, 1);
-  ab->drawLine(offsetx, 63, offsetx + 64, 63, 1);
+  ab->drawLine(offsetx + (System::ScreenWidth / 2), 0, offsetx + (System::ScreenWidth / 2), System::ScreenHeight - 1, 1);
+  ab->drawLine(offsetx, System::ScreenHeight - 1, offsetx + (System::ScreenWidth / 2), System::ScreenHeight - 1, 1);
 }
 
 void Render::drawStats(void)
