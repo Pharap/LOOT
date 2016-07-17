@@ -7,7 +7,8 @@ class Chest
 {
 private:
     ItemType type;
-    int8_t x,y;
+    int8_t x;
+    int8_t y;
 
 public:
     Chest(void) = default;
