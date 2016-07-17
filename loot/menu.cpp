@@ -14,7 +14,7 @@ void Menu::init(void)
 {
   page = MenuPage::Main;
   select = 0;
-  logoAnim = 64;
+  logoAnim = System::ScreenHeight;
 }
 
 void Menu::step(void)
@@ -71,7 +71,7 @@ void Menu::draw(void)
     {
       //logo
       if (logoAnim > 0)
-        ab->drawSpriteCentred(64, 32 - (64 - logoAnim), imgTitle, 1);
+        ab->drawSpriteCentred(System::ScreenCentreX, System::ScreenCentreY - (System::ScreenHeight - logoAnim), imgTitle, 1);
       //menu text
       ab->setCursor(16, logoAnim + 8);
       ab->print(F("Play"));
