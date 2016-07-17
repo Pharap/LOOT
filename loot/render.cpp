@@ -103,18 +103,19 @@ void Render::drawView(void)
   const uint8_t wallSize[] = { 6, 10, 18, 32, 64 };  //size in pixels of each step
   uint8_t wall = 0;  //current wall
 
-  uint8_t drawSize, halfSize, backSize, halfBackSize, top, topBack;
-  int8_t left, leftBack;
+  int8_t left = 0, leftBack = 0;
   for(uint8_t i = 0; i < 4; ++i) //distance
   {
-    drawSize = wallSize[i + 1]; halfSize = drawSize / 2;      //size of walls on screen
-    backSize = wallSize[i];   halfBackSize = backSize / 2;  //size of the backside of the walls, for depth
-    leftBack = 32 - (halfBackSize * 3);      //x position of the walls on screen
+    const uint8_t backSize = wallSize[i + 0]; // Size of the backside of the walls, for depth
+    const uint8_t drawSize = wallSize[i + 1]; // Size of walls on screen
+    const uint8_t halfBackSize = backSize / 2;
+    const uint8_t halfSize = drawSize / 2;
+    const uint8_t topBack  = 32 - halfBackSize;         // Y position of the walls on screen
+    const uint8_t top      = 32 - halfSize;
+    leftBack = 32 - (halfBackSize * 3);      // X position of the walls on screen
     left     = 32 - (halfSize * 3);
-    topBack  = 32 - halfBackSize;         //y position of the walls on screen
-    top      = 32 - halfSize;
 
-    for(uint8_t n = 0; n < 3; ++n) //left->right
+    for(uint8_t n = 0; n < 3; ++n) // left -> right
     {
       if (wallShow[wall]) //if wall exists, draw it
       {
