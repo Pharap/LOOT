@@ -103,26 +103,27 @@ void Render::drawView(void)
   const uint8_t wallSize[] = { 6, 10, 18, 32, 64 };  //size in pixels of each step
   uint8_t wall = 0;  //current wall
 
-  uint8_t drawSize, halfSize, backSize, halfBackSize, top, topBack;
-  int8_t left, leftBack;
+  int8_t left = 0, leftBack = 0;
   for(uint8_t i = 0; i < 4; ++i) //distance
   {
-    drawSize = wallSize[i + 1]; halfSize = drawSize / 2;      //size of walls on screen
-    backSize = wallSize[i];   halfBackSize = backSize / 2;  //size of the backside of the walls, for depth
-    leftBack = 32 - (halfBackSize * 3);      //x position of the walls on screen
+    const uint8_t backSize = wallSize[i + 0]; // Size of the backside of the walls, for depth
+    const uint8_t drawSize = wallSize[i + 1]; // Size of walls on screen
+    const uint8_t halfBackSize = backSize / 2;
+    const uint8_t halfSize = drawSize / 2;
+    const uint8_t topBack  = 32 - halfBackSize;         // Y position of the walls on screen
+    const uint8_t top      = 32 - halfSize;
+    leftBack = 32 - (halfBackSize * 3);      // X position of the walls on screen
     left     = 32 - (halfSize * 3);
-    topBack  = 32 - halfBackSize;         //y position of the walls on screen
-    top      = 32 - halfSize;
 
-    for(uint8_t n = 0; n < 3; ++n) //left->right
+    for(uint8_t n = 0; n < 3; ++n) // left -> right
     {
       if (wallShow[wall]) //if wall exists, draw it
       {
         if((n == 0) && (wallShow[wall + 1] == 0))  //left wall, only draw if the middle wall is missing
         {
           ab->fillRect(left + drawSize, top, (leftBack + backSize) - (left + drawSize), drawSize, 0); //blank out area behind wall
-          ab->drawLine(leftBack + backSize, topBack + backSize, left + drawSize, top + drawSize, 1); //lower line
           ab->drawLine(left + drawSize, top, leftBack + backSize, topBack, 1);                     //upper line
+          ab->drawLine(leftBack + backSize, topBack + backSize, left + drawSize, top + drawSize, 1); //lower line
           ab->drawLine(leftBack + backSize, topBack, leftBack + backSize, topBack + backSize, 1); //far line
         }
         if((n == 2) && (wallShow[wall - 1] == 0)) //right wall, ditto
@@ -132,15 +133,11 @@ void Render::drawView(void)
           ab->drawLine(leftBack, topBack + backSize, left, top + drawSize, 1); //lower
           ab->drawLine(leftBack, topBack, leftBack, topBack + backSize, 1);  //side
         }
-        if((i < 3) && (wallShow[wall + 3] == 0))  //draw flat wall if not immediately next to the camera, and if there is no wall infront
-        {
-          int wid = drawSize; //width of wall
-          if (( n== 2) && (left + wid > 64))  //if the wall goes off the render area, chop the width down
-          {
-            wid = 15; //(64-halfSize)-1;  //magic numbering this because the only time it ever happens is on a close right side wall
-          }
-          ab->fillRect(left, top, wid, drawSize, 0);     //blank out wall area and draw then draw the outline
-          ab->drawRect(left, top, wid+1, drawSize + 1, 1);
+        if(wallShow[wall + 3] == 0)  // Draw flat wall if not immediately next to the camera, and if there is no wall infront
+        {          
+          int width = (left + drawSize > System::ScreenCentreX) ? 15 : drawSize; // Keep wall inside render area
+          ab->fillRect(left, top, width + 0, drawSize + 0, 0); // Blank out wall area
+          ab->drawRect(left, top, width + 1, drawSize + 1, 1); // Draw wall outline
         }
       } 
       else if(itemShow[wall])
@@ -171,6 +168,17 @@ void Render::drawView(void)
   ab->fillRect(System::ScreenCentreX, 0, 16, System::ScreenHeight, 0);  //hide any leaky drawing
   ab->drawRect(0, 0, System::ScreenWidth / 2, System::ScreenHeight, 1);
 
+  #if defined(CHAR_COMPASS)
+  char c = '\0';
+  switch(player->getDirection())
+  {
+    case Direction::North: { c = 'N'; break; }
+    case Direction::East:  { c = 'E'; break; }
+    case Direction::South: { c = 'S'; break; }
+    case Direction::West:  { c = 'W'; break; }
+  }
+  ab->drawChar(32 - (5 / 2), (7 / 2), c, 1, 0, 1);
+  #else
   const uint8_t * image;
   switch(player->getDirection())
   {
@@ -179,15 +187,16 @@ void Render::drawView(void)
     case Direction::South: { image = imgCompassS; break; }
     case Direction::West:  { image = imgCompassW; break; }
   }
-  ab->drawSpriteCentred(32,6,image,1);
-
-  //printf(" Direction: %u", player->getDirection());
+  ab->drawSpriteCentred(32, 6, image, 1);
+  #endif
 }
 
 void Render::drawMap(void)
 {
-  //draw map grid
-  const uint8_t offsetx = 63;
+  // Out of interest, making this value 64 instead of 63 adds 2 bytes to the code and I have no idea why.
+  // Presumably it's a limitation of the AVR instruction set. AVR probably only affords 5 bits to immediate values.
+  constexpr static const uint8_t offsetx = System::ScreenCentreX;
+  // Draw map grid
   for(int iy = 0, jy = 0; iy < 8; ++iy, jy += 8)
     for(int ix = 0, jx = 0; ix < 8; ++ix, jx += 8)
       if (wallCheck(ix,iy))
@@ -237,9 +246,8 @@ void Render::drawMap(void)
     ab->drawLine(x1, y1, x2, y2, 1);
   }
 
-  //outlines the map
-  ab->drawLine(offsetx + (System::ScreenWidth / 2), 0, offsetx + (System::ScreenWidth / 2), System::ScreenHeight - 1, 1);
-  ab->drawLine(offsetx, System::ScreenHeight - 1, offsetx + (System::ScreenWidth / 2), System::ScreenHeight - 1, 1);
+  // Outlines the map
+  ab->drawRect(offsetx, 0, System::ScreenWidth/2, System::ScreenHeight, 1);
 }
 
 void Render::drawStats(void)
