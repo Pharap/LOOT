@@ -133,15 +133,11 @@ void Render::drawView(void)
           ab->drawLine(leftBack, topBack + backSize, left, top + drawSize, 1); //lower
           ab->drawLine(leftBack, topBack, leftBack, topBack + backSize, 1);  //side
         }
-        if((i < 3) && (wallShow[wall + 3] == 0))  //draw flat wall if not immediately next to the camera, and if there is no wall infront
-        {
-          int wid = drawSize; //width of wall
-          if (( n== 2) && (left + wid > 64))  //if the wall goes off the render area, chop the width down
-          {
-            wid = 15; //(64-halfSize)-1;  //magic numbering this because the only time it ever happens is on a close right side wall
-          }
-          ab->fillRect(left, top, wid, drawSize, 0);     //blank out wall area and draw then draw the outline
-          ab->drawRect(left, top, wid+1, drawSize + 1, 1);
+        if(wallShow[wall + 3] == 0)  // Draw flat wall if not immediately next to the camera, and if there is no wall infront
+        {          
+          int width = (left + drawSize > System::ScreenCentreX) ? 15 : drawSize; // Keep wall inside render area
+          ab->fillRect(left, top, width + 0, drawSize + 0, 0); // Blank out wall area
+          ab->drawRect(left, top, width + 1, drawSize + 1, 1); // Draw wall outline
         }
       } 
       else if(itemShow[wall])
