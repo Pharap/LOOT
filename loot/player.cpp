@@ -93,7 +93,7 @@ void Player::step()
     if (world->hasItem(x,y))
     {
       Serial.print(F("Item! Type : "));
-      Serial.print((uint8_t)world->getItemType(x,y));
+      Serial.print(static_cast<uint8_t>(world->getItemType(x,y)));
       Serial.print(F(" ID : "));
       Serial.println(world->getItemID(x,y));
     }
