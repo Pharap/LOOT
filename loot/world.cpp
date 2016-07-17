@@ -1,35 +1,7 @@
-#include "world.h"
-#include "itemtype.h"
 #include <stdint.h>
-
-///chests
-Chest::Chest(const int8_t x, const int8_t y, const ItemType type)
-{
-  this->x = x;
-  this->y = y;
-  this->type = type;
-}
-
-void Chest::setType(ItemType type)
-{
-  this->type = type;
-}
-
-ItemType Chest::getType() const
-{
-  return type;
-}
-
-int8_t Chest::getX() const
-{
-  return x;
-}
-
-int8_t Chest::getY() const
-{
-  return y;
-}
-
+#include "world.h"
+#include "chest.h"
+#include "itemtype.h"
 
 //world
 void World::init(void)
