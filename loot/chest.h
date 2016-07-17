@@ -15,9 +15,9 @@ public:
     ItemType getType(void) const;
     void setType(const ItemType type);
     int8_t getX(void) const;
-    void setType(const int8_t x);
+    void setX(const int8_t x);
     int8_t getY(void) const;
-    void setType(const int8_t y);
+    void setY(const int8_t y);
 };
 
 using ChestList = List<Chest, 16>;
