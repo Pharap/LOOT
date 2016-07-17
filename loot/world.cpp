@@ -37,8 +37,8 @@ void World::init(void)
   width = 8;
   height = 8;
 
-  //replace this bit with a progmem loader doodah
-  uint8_t leveldata[64] =
+  // Replace this bit with a progmem loader doodah
+  static const uint8_t leveldata[64] =
   {
     1,1,1,1,1,1,1,1,
     0,0,0,0,0,1,0,0,
