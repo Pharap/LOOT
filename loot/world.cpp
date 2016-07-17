@@ -51,7 +51,7 @@ void World::init(void)
   };
   for(uint8_t i=0; i<64; ++i)
   {
-    level[i] = (TileType)leveldata[i];
+    level[i] = static_cast<TileType>(leveldata[i]);
   };
   battleTendency = 4;
 
