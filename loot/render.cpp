@@ -122,8 +122,8 @@ void Render::drawView(void)
         if((n == 0) && (wallShow[wall + 1] == 0))  //left wall, only draw if the middle wall is missing
         {
           ab->fillRect(left + drawSize, top, (leftBack + backSize) - (left + drawSize), drawSize, 0); //blank out area behind wall
-          ab->drawLine(leftBack + backSize, topBack + backSize, left + drawSize, top + drawSize, 1); //lower line
           ab->drawLine(left + drawSize, top, leftBack + backSize, topBack, 1);                     //upper line
+          ab->drawLine(leftBack + backSize, topBack + backSize, left + drawSize, top + drawSize, 1); //lower line
           ab->drawLine(leftBack + backSize, topBack, leftBack + backSize, topBack + backSize, 1); //far line
         }
         if((n == 2) && (wallShow[wall - 1] == 0)) //right wall, ditto
