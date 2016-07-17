@@ -12,8 +12,8 @@ class System : public Arduboy
   public:  
     constexpr static const uint8_t ScreenWidth = WIDTH;
     constexpr static const uint8_t ScreenHeight = HEIGHT;
-    constexpr static const uint8_t ScreenCentreX = screenWidth / 2;
-    constexpr static const uint8_t ScreenCentreY = screenHeight / 2;
+    constexpr static const uint8_t ScreenCentreX = ScreenWidth / 2;
+    constexpr static const uint8_t ScreenCentreY = ScreenHeight / 2;
 
   public:
   // Explicitly calling parent's default constructor for the sake of clarity.
