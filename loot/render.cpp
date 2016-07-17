@@ -8,7 +8,7 @@
 #include "itemtype.h"
 
 
-Render::Render(System & ab,World & world, Player & player)
+Render::Render(System & ab, World & world, Player & player)
 {
   this->ab = &ab;
   this->world = &world;
@@ -244,10 +244,10 @@ void Render::drawMap(void)
 
 void Render::drawStats(void)
 {
-  ab->setCursor(66, 2);
+  ab->setCursor(System::ScreenCentreX + 2, 2);
   ab->print(F("HP : "));
-  ab->setCursor(66, 10);
+  ab->setCursor(System::ScreenCentreX + 2, 10);
   ab->print(F("SP : "));
-  ab->setCursor(66, 18);
+  ab->setCursor(System::ScreenCentreX + 2, 18);
   ab->print(F("G  : "));
 }
