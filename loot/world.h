@@ -1,30 +1,9 @@
 #pragma once
 #include <stdint.h>
-#include "list.h"
-#include "Itemtype.h"
-#include "TileType.h"
+#include "chest.h"
+#include "itemtype.h"
+#include "tiletype.h"
 
-// Chest needs its own file
-class Chest
-{
-private:
-    // Any time you think you should be storing any sort of 'type' as an integer:
-    // stop yourself,
-    // read this: http://www.cprogramming.com/c++11/c++11-nullptr-strongly-typed-enum-class.html,
-    // and promptly create a new file with a nicely defined enum class
-    ItemType type;
-    int8_t x,y;
-
-public:
-    Chest(void) = default;
-    Chest(const int8_t x, const int8_t y, const ItemType type); 
-    void setType(ItemType type); // I find the presence of only 1 set odd, but oh well
-    ItemType getType(void) const;
-    int8_t getX(void) const;
-    int8_t getY(void) const;
-};
-
-using ChestList = List<Chest, 16>;
 
 class World
 {
