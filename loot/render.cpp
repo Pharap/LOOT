@@ -168,6 +168,17 @@ void Render::drawView(void)
   ab->fillRect(System::ScreenCentreX, 0, 16, System::ScreenHeight, 0);  //hide any leaky drawing
   ab->drawRect(0, 0, System::ScreenWidth / 2, System::ScreenHeight, 1);
 
+  #if defined(CHAR_COMPASS)
+  char c = '\0';
+  switch(player->getDirection())
+  {
+    case Direction::North: { c = 'N'; break; }
+    case Direction::East:  { c = 'E'; break; }
+    case Direction::South: { c = 'S'; break; }
+    case Direction::West:  { c = 'W'; break; }
+  }
+  ab->drawChar(32 - (5 / 2), (7 / 2), c, 1, 0, 1);
+  #else
   const uint8_t * image;
   switch(player->getDirection())
   {
@@ -176,9 +187,8 @@ void Render::drawView(void)
     case Direction::South: { image = imgCompassS; break; }
     case Direction::West:  { image = imgCompassW; break; }
   }
-  ab->drawSpriteCentred(32,6,image,1);
-
-  //printf(" Direction: %u", player->getDirection());
+  ab->drawSpriteCentred(32, 6, image, 1);
+  #endif
 }
 
 void Render::drawMap(void)
