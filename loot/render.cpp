@@ -186,8 +186,10 @@ void Render::drawView(void)
 
 void Render::drawMap(void)
 {
-  //draw map grid
-  const uint8_t offsetx = 63;
+  // Out of interest, making this value 64 instead of 63 adds 2 bytes to the code and I have no idea why.
+  // Presumably it's a limitation of the AVR instruction set. AVR probably only affords 5 bits to immediate values.
+  constexpr static const uint8_t offsetx = System::ScreenCentreX;
+  // Draw map grid
   for(int iy = 0, jy = 0; iy < 8; ++iy, jy += 8)
     for(int ix = 0, jx = 0; ix < 8; ++ix, jx += 8)
       if (wallCheck(ix,iy))
@@ -237,9 +239,8 @@ void Render::drawMap(void)
     ab->drawLine(x1, y1, x2, y2, 1);
   }
 
-  //outlines the map
-  ab->drawLine(offsetx + (System::ScreenWidth / 2), 0, offsetx + (System::ScreenWidth / 2), System::ScreenHeight - 1, 1);
-  ab->drawLine(offsetx, System::ScreenHeight - 1, offsetx + (System::ScreenWidth / 2), System::ScreenHeight - 1, 1);
+  // Outlines the map
+  ab->drawRect(offsetx, 0, System::ScreenWidth/2, System::ScreenHeight, 1);
 }
 
 void Render::drawStats(void)
