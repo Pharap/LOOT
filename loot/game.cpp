@@ -5,9 +5,9 @@
 #include "menu.h"
 #include "player.h"
 #include "world.h"
-#include "constants.h"
 #include "direction.h"
 #include "button.h"
+#include "gamestate.h"
 
 Game::Game(System & ab, Render & render, Menu & menu, Player & player, World & world, Battle & battle)
 {
@@ -36,21 +36,21 @@ void Game::step(void)
     auto state = ab->getState();
     switch(state)
     {
-      case stateMenu:
+      case GameState::Menu:
       {
         menu->init();
         break;
       }
-      case stateGame:
+      case GameState::Gameplay:
       {
-        if (ab->getLastState() == stateMenu)
+        if (ab->getLastState() == GameState::Menu)
         {
           player->init();
           world->init();
           break;
         }
       }
-      case stateBattle:
+      case GameState::Battle:
       {
       }
     }
@@ -59,13 +59,13 @@ void Game::step(void)
 
   switch(ab->getState())
   {
-    case stateMenu:
+    case GameState::Menu:
     {
       menu->step();
       menu->draw();
       break;
     }
-    case stateGame:
+    case GameState::Gameplay:
     {
       player->step();
       render->step();
@@ -73,7 +73,7 @@ void Game::step(void)
       player->resetMoved();
       break;
     }
-    case stateBattle:
+    case GameState::Battle:
     {
       battle->step();
 
