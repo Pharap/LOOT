@@ -1,7 +1,7 @@
 #pragma once
 
 #include "arduboy.h"
-#include "constants.h"
+#include "gamestate.h"
 #include "button.h"
 
 class System : public Arduboy
@@ -9,8 +9,8 @@ class System : public Arduboy
 	private:
 		uint8_t nowInput;
 		uint8_t prevInput;
-		uint8_t lastState;
-		uint8_t state;
+		GameState lastState;
+		GameState state;
 
 	public:  
 		constexpr static const uint8_t ScreenWidth = WIDTH;
@@ -20,11 +20,11 @@ class System : public Arduboy
 
 	public:
 		// Explicitly calling parent's default constructor for the sake of clarity.
-		// Arduboy's constructor would be called even if the exlicit call were removed.
+		// Arduboy's constructor would be called even if the explicit call were removed.
 		System(void) : Arduboy()
 		{
-			this->lastState = stateNull;
-			this->state = stateMenu;
+			this->lastState = GameState::Null;
+			this->state = GameState::Menu;
 			this->nowInput  = 0x00;
 			this->prevInput = 0xff;
 			this->setFrameRate(30); // I checked, it's safe to do this
@@ -81,12 +81,12 @@ class System : public Arduboy
 			this->drawBitmap(x - (w / 2), y - (h / 2), bitmap + 2, w, h, 1);
 		}
   
-		uint8_t getState(void) const
+		GameState getState(void) const
 		{
 			return this->state;
 		}
   
-		uint8_t getLastState(void) const
+		GameState getLastState(void) const
 		{
 			return this->lastState;
 		}
@@ -101,7 +101,7 @@ class System : public Arduboy
 			return (this->state != this->lastState);
 		}
   
-		void setState(const uint8_t newstate)
+		void setState(const GameState newstate)
 		{
 			this->lastState = this->state;
 			this->state = newstate;
