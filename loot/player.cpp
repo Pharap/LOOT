@@ -1,5 +1,4 @@
 #include "player.h"
-#include "constants.h"
 #include "world.h"
 #include "system.h"
 #include "direction.h"
@@ -99,7 +98,7 @@ void Player::step()
     }
     else if (random(battleSteps) > world->getBattleChance())
     { 
-      ab->setState(stateBattle);
+      ab->setState(GameState::Battle);
       Serial.println(F("Battle!"));
       battleSteps = 0;
     }

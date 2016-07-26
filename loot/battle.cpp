@@ -1,6 +1,7 @@
 #include "battle.h"
 #include "enemytype.h"
 #include "fighter.h"
+#include "gamestate.h"
 
 Battle::Battle(System & ab)
 {
@@ -11,7 +12,7 @@ void Battle::step(void)
 {
 	if(ab->isPressed(Button::A))
 	{
-		ab->setState(stateGame);
+		ab->setState(GameState::Gameplay);
 	}
 }
 
