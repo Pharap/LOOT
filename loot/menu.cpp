@@ -1,9 +1,9 @@
 #include "menu.h"
 #include "menupage.h"
-#include "constants.h"
 #include "graphics.h"
 #include "system.h"
 #include "button.h"
+#include "gamestate.h"
 
 Menu::Menu(System & ab)
 {
@@ -31,7 +31,7 @@ void Menu::step(void)
         {
           switch(select)
           {
-          case 0: { ab->setState(stateGame); break; }
+          case 0: { ab->setState(GameState::Gameplay); break; }
           case 1: { page = MenuPage::Options; break; }
           case 2: { page = MenuPage::About; select = 2; break; } // This basically equates to if(select == 2) select = 2;
           }
