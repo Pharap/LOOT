@@ -31,55 +31,36 @@ void Game::load(const bool slot)
 
 void Game::step(void)
 {
-  if (ab->stateChanged())
-  {
-    auto state = ab->getState();
-    switch(state)
+    switch(ab->getState())
     {
-      case GameState::Menu:
-      {
-        menu->init();
-        break;
-      }
-      case GameState::Gameplay:
-      {
-        if (ab->getLastState() == GameState::Menu)
-        {
-          player->init();
-          world->init();
-          break;
-        }
-      }
-      case GameState::Battle:
-      {
-      }
+  		case GameState::Menu:
+  		{
+  			if (ab->stateChanged())
+  			{
+  				menu->init();
+  			}
+  			menu->step();
+  			menu->draw();
+  			break;
+  		}
+  		case GameState::Gameplay:
+  		{
+  			if (ab->getLastState() == GameState::Menu)
+  			{
+  				player->init();
+  				world->init();
+  			}
+  			player->step();
+  			render->step();
+  			render->draw();
+  			player->resetMoved();
+  			break;
+  		}
+  		case GameState::Battle:
+  		{
+  			battle->step();
+  			render->drawView();
+  			battle->draw();
+  		}
     }
-  }
-  ab->stateEndChange();
-
-  switch(ab->getState())
-  {
-    case GameState::Menu:
-    {
-      menu->step();
-      menu->draw();
-      break;
-    }
-    case GameState::Gameplay:
-    {
-      player->step();
-      render->step();
-      render->draw();
-      player->resetMoved();
-      break;
-    }
-    case GameState::Battle:
-    {
-      battle->step();
-
-      render->drawView();
-      battle->draw();
-      break;
-    }
-  }
 }
