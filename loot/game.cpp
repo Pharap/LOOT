@@ -38,6 +38,7 @@ void Game::step(void)
   			if (ab->stateChanged())
   			{
   				menu->init();
+  				ab->stateEndChange();
   			}
   			menu->step();
   			menu->draw();
@@ -49,6 +50,7 @@ void Game::step(void)
   			{
   				player->init();
   				world->init();
+  				ab->stateEndChange();
   			}
   			player->step();
   			render->step();
