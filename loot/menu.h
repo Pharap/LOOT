@@ -11,6 +11,7 @@ class Menu
     System * ab;
     MenuPage page;
     int8_t select;
+    bool menuReady;
     int8_t logoAnim;  //slides menu up
     
   public:

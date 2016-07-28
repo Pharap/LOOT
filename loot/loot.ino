@@ -22,13 +22,6 @@ void setup(void)
 	ab.begin();
 	Serial.begin(9600);
 	Serial.println(F("Start!"));
-	ab.fillScreen(0);
-  	ab.drawSpriteCentred(System::ScreenCentreX, System::ScreenCentreY, imgTitle, 1);
-	ab.display();
-	while(!ab.isPushed(Button::A))	//keep titlescreen up until a button is pressed
-	{
-		ab.update();
-	}
 }
 
 void loop(void)

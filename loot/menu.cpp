@@ -19,7 +19,12 @@ void Menu::init(void)
 
 void Menu::step(void)
 {
-  logoAnim = max(logoAnim - 2, 0);
+  if(menuReady)
+    logoAnim = max(logoAnim - 2, 0);
+  else
+  {
+    menuReady = ab->isPushed(Button::A);
+  }
 
   if(logoAnim == 0) //if menu is ready
   {
