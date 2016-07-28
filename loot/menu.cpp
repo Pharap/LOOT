@@ -19,51 +19,55 @@ void Menu::init(void)
 
 void Menu::step(void)
 {
-  if(menuReady)
-    logoAnim = max(logoAnim - 2, 0);
-  else
+  if(!menuReady)
   {
     menuReady = ab->isPushed(Button::A);
   }
-
-  if(logoAnim == 0) //if menu is ready
+  else
   {
-    if(ab->isPushed(Button::A))
+    if(logoAnim > 0)
     {
-      switch(page)
+      logoAnim -= 2;//max(logoAnim - 2, 0);
+    }
+    else //if menu is ready
+    {
+      if(ab->isPushed(Button::A))
       {
-        case MenuPage::Main:
+        switch(page)
         {
-          switch(select)
+          case MenuPage::Main:
           {
-          case 0: { ab->setState(GameState::Gameplay); break; }
-          case 1: { page = MenuPage::Options; break; }
-          case 2: { page = MenuPage::About; select = 2; break; } // This basically equates to if(select == 2) select = 2;
+            switch(select)
+            {
+            case 0: { ab->setState(GameState::Gameplay); break; }
+            case 1: { page = MenuPage::Options; break; }
+            case 2: { page = MenuPage::About; select = 2; break; } // This basically equates to if(select == 2) select = 2;
+            }
+            break;
           }
-          break;
-        }
-        case MenuPage::Options:
-        {
-          page = MenuPage::Main;
-          select = 1;
-          break;
-        }
-        case MenuPage::About:
-        {
-          page = MenuPage::Main;
-          break;
+          case MenuPage::Options:
+          {
+            page = MenuPage::Main;
+            select = 1;
+            break;
+          }
+          case MenuPage::About:
+          {
+            page = MenuPage::Main;
+            break;
+          }
         }
       }
-    }
-
-    if(ab->isPushed(Button::Up))
-    {
-      if(select > 0) --select;
-    }
-
-    if(ab->isPushed(Button::Down))
-    {
-      if(select < 2) ++select;
+  
+      if(ab->isPushed(Button::Up))
+      {
+        if(select > 0) --select;
+      }
+  
+      if(ab->isPushed(Button::Down))
+      {
+        if(select < 2) ++select;
+      }
     }
   }
 }
